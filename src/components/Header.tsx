@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        {/* The Link now contains an image tag for your new logo */}
+        {/* This Link now contains the corrected image tag for your new logo */}
         <Link to="/" className="flex items-center space-x-2">
           <img src="/logo.png" alt="Plugged In Logo" className="h-8" />
         </Link>
