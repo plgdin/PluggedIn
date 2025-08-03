@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import logo from "../assets/logo.png"; // 1. Import the logo here
+import logo from "D:\Startup\plugged-in-project\src\assets\logo.png"; // 1. Import the logo here
 
 const Header = () => {
   const location = useLocation();
