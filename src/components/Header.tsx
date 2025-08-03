@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Zap } from "lucide-react";
 
 const Header = () => {
   const location = useLocation();
@@ -14,12 +13,9 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
+        {/* The Link now contains an image tag for your new logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <div className="relative">
-            <Zap className="h-8 w-8 text-primary" />
-            <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-primary"></div>
-          </div>
-          <span className="text-xl font-bold text-foreground">PLUGGED IN</span>
+          <img src="/logo.png" alt="Plugged In Logo" className="h-8" />
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
@@ -46,4 +42,4 @@ const Header = () => {
   );
 };
 
-export default Header; // This line is the critical fix.
+export default Header;
