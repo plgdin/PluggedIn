@@ -4,20 +4,20 @@ import { Phone } from "lucide-react";
 
 const contacts = [
   { name: "Anshaj Shaji", phone: "+91 9778052356" },
-  { name: "George Jose", phone: "+91 7907189204" },
+  { name: "George Joseph", phone: "+91 7907189204" },
   { name: "Alan Biji Alex", phone: "+91 9074297466" },
   { name: "Aditya R", phone: "+91 8590889282" },
   { name: "Adithyan S.M", phone: "+91 9778559818" },
 ];
 
-const EmergencyContacts = () => {
+const Contacts = () => {
   return (
     <div className="min-h-screen py-20">
       <div className="container px-4">
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Emergency Contacts
+              Contacts
             </h1>
             <p className="text-xl text-muted-foreground">
               For urgent matters, please contact a team member directly.
@@ -47,4 +47,4 @@ const EmergencyContacts = () => {
   );
 };
 
-export default EmergencyContacts;
+export default Contacts;

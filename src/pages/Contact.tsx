@@ -100,7 +100,7 @@ const Contact = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Phone className="h-5 w-5 text-primary" />
-                    Emergency Contacts
+                      Contacts
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
