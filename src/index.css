@@ -8,48 +8,48 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 40 30% 95%; /* Light Beige Background */
-    --foreground: 25 10% 10%; /* Dark Warm Gray Text */
-    --card: 0 0% 100%; /* Clean White Cards */
-    --card-foreground: 25 10% 10%;
+    --background: 40 33% 94%; /* Light Beige Background */
+    --foreground: 15 30% 23%; /* Dark Brown Text */
+    --card: 0 0% 100%; /* White Cards for contrast */
+    --card-foreground: 15 30% 23%;
     --popover: 0 0% 100%;
-    --popover-foreground: 25 10% 10%;
-    --primary: 25 85% 55%; /* Warm Orange Accent */
-    --primary-foreground: 25 10% 10%;
-    --secondary: 30 10% 25%; /* Darker Beige */
-    --secondary-foreground: 30 10% 95%;
-    --muted: 30 10% 60%;
-    --muted-foreground: 30 10% 30%;
-    --accent: 30 10% 90%;
-    --accent-foreground: 25 10% 10%;
+    --popover-foreground: 15 30% 23%;
+    --primary: 18 37% 40%; /* Mid-tone Brown for Accents */
+    --primary-foreground: 40 33% 94%; /* Light Beige text on buttons */
+    --secondary: 40 15% 90%; /* Lighter Beige */
+    --secondary-foreground: 15 30% 23%;
+    --muted: 40 10% 85%;
+    --muted-foreground: 15 20% 40%;
+    --accent: 40 20% 88%;
+    --accent-foreground: 15 30% 23%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 30 10% 85%;
-    --input: 30 10% 85%;
-    --ring: 25 85% 55%;
+    --border: 40 20% 85%;
+    --input: 40 20% 85%;
+    --ring: 18 37% 40%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 25 10% 10%; /* Dark Warm Gray Background */
-    --foreground: 30 10% 90%; /* Light Off-White Text */
-    --card: 25 10% 15%; /* Slightly Lighter Card Background */
-    --card-foreground: 30 10% 90%;
-    --popover: 25 10% 10%;
-    --popover-foreground: 30 10% 90%;
-    --primary: 25 85% 55%; /* Warm Orange Accent */
-    --primary-foreground: 25 10% 10%;
-    --secondary: 30 10% 80%;
-    --secondary-foreground: 30 10% 10%;
-    --muted: 30 10% 25%;
-    --muted-foreground: 30 10% 65%;
-    --accent: 30 10% 25%;
-    --accent-foreground: 30 10% 90%;
+    --background: 15 30% 23%; /* Dark Brown Background */
+    --foreground: 40 33% 94%; /* Light Beige Text */
+    --card: 15 30% 28%; /* Slightly Lighter Brown Cards */
+    --card-foreground: 40 33% 94%;
+    --popover: 15 30% 23%;
+    --popover-foreground: 40 33% 94%;
+    --primary: 18 37% 50%; /* Brighter Brown for Accents */
+    --primary-foreground: 15 30% 15%;
+    --secondary: 15 30% 35%;
+    --secondary-foreground: 40 33% 94%;
+    --muted: 15 30% 35%;
+    --muted-foreground: 40 20% 75%;
+    --accent: 15 30% 35%;
+    --accent-foreground: 40 33% 94%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 100%;
-    --border: 30 10% 25%;
-    --input: 30 10% 25%;
-    --ring: 25 85% 55%;
+    --border: 15 30% 35%;
+    --input: 15 30% 35%;
+    --ring: 18 37% 50%;
   }
 }
 
