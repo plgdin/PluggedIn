@@ -1,4 +1,3 @@
-// FILE: src/pages/Contact.tsx
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom"; // 1. Add this import
 
 const Contact = () => {
   const { toast } = useToast();
@@ -59,42 +59,21 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("name", e.target.value)}
-                      required
-                    />
+                    <Input id="name" value={formData.name} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("name", e.target.value)} required />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("email", e.target.value)}
-                      required
-                    />
+                    <Input id="email" type="email" value={formData.email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("email", e.target.value)} required />
                   </div>
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("phone", e.target.value)}
-                    required
-                  />
+                  <Input id="phone" type="tel" value={formData.phone} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange("phone", e.target.value)} required />
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="emergencyType">Emergency Service Type</Label>
                   <Select value={formData.emergencyType} onValueChange={(value: string) => handleChange("emergencyType", value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select service type" />
-                    </SelectTrigger>
+                    <SelectTrigger><SelectValue placeholder="Select service type" /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="medical">Medical Emergency</SelectItem>
                       <SelectItem value="security">Security/Safety</SelectItem>
@@ -104,58 +83,31 @@ const Contact = () => {
                     </SelectContent>
                   </Select>
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleChange("message", e.target.value)}
-                    placeholder="Tell us about your emergency service needs..."
-                    required
-                  />
+                  <Textarea id="message" rows={4} value={formData.message} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleChange("message", e.target.value)} placeholder="Tell us about your emergency service needs..." required />
                 </div>
-
-                <Button type="submit" className="w-full">
-                  Send Message
-                </Button>
+                <Button type="submit" className="w-full">Send Message</Button>
               </form>
             </CardContent>
           </Card>
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Phone className="h-5 w-5 text-primary" />
-                  Emergency Contacts
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <p className="font-semibold">Anshaj Shaji</p>
-                  <p className="text-muted-foreground">+91 9778052356</p>
-                </div>
-                <div>
-                  <p className="font-semibold">George Jose</p>
-                  <p className="text-muted-foreground">+91 7907189204</p>
-                </div>
-                <div>
-                  <p className="font-semibold">Alan Biji Alex</p>
-                  <p className="text-muted-foreground">+91 9074297466</p>
-                </div>
-                <div>
-                  <p className="font-semibold">Aditya R</p>
-                  <p className="text-muted-foreground">+91 8590889282</p>
-                </div>
-                <div>
-                  <p className="font-semibold">Adithyan S.M</p>
-                  <p className="text-muted-foreground">+91 9778559818</p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* 2. This card is now a clickable link and the list of numbers is removed */}
+            <Link to="/emergency-contacts" className="block hover:opacity-80 transition-opacity">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Phone className="h-5 w-5 text-primary" />
+                    Emergency Contacts
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">Click here for a full list of phone numbers.</p>
+                </CardContent>
+              </Card>
+            </Link>
 
             <Card>
               <CardHeader>
