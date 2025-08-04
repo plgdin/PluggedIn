@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Zap, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-import waveBottomLeft from "../assets/wave-bottom-left.png"; // 1. Import the wave image
+import waveBottomLeft from "../assets/wave-bottom-left.png";
 
 const Home = () => {
   return (
@@ -30,9 +30,17 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Key Features */}
-      <section className="py-20 bg-background">
-        <div className="container px-4">
+      {/* Key Features Section - MODIFIED FOR WAVE BACKGROUND */}
+      <section className="py-20 bg-background relative overflow-hidden">
+        {/* The wave image is now inside this section, positioned absolutely */}
+        <img
+          src={waveBottomLeft}
+          alt="Decorative wave"
+          className="absolute -bottom-20 -left-20 w-2/3 md:w-1/2 opacity-20 pointer-events-none z-0"
+        />
+
+        {/* The container for the content is now positioned relatively on top of the wave */}
+        <div className="container px-4 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Life-Saving Technology
@@ -43,7 +51,7 @@ const Home = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center">
+            <Card className="text-center bg-background/80 backdrop-blur-sm">
               <CardHeader>
                 <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Context-Aware</CardTitle>
@@ -55,7 +63,7 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center bg-background/80 backdrop-blur-sm">
               <CardHeader>
                 <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Instant Response</CardTitle>
@@ -67,7 +75,7 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center bg-background/80 backdrop-blur-sm">
               <CardHeader>
                 <Zap className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Smart Integration</CardTitle>
@@ -79,7 +87,7 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center">
+            <Card className="text-center bg-background/80 backdrop-blur-sm">
               <CardHeader>
                 <Users className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Scalable Solution</CardTitle>
@@ -93,15 +101,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* 2. ADD THIS NEW SECTION FOR THE WAVE */}
-      <div className="relative container -mt-20">
-        <img
-          src={waveBottomLeft}
-          alt="Decorative wave"
-          className="w-1/3 md:w-1/4 pointer-events-none"
-        />
-      </div>
 
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
