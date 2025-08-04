@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import logo from "../assets/logo.png"; // 1. Import the logo here
+import logo from "../assets/logo.png";
 
 const Header = () => {
   const location = useLocation();
@@ -15,7 +15,6 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          {/* 2. Use the imported logo variable as the source */}
           <img src={logo} alt="Plugged In Logo" className="h-8" />
         </Link>
 
@@ -35,9 +34,12 @@ const Header = () => {
           ))}
         </nav>
 
-        <Button variant="outline" className="hidden md:flex">
-          Emergency Services
-        </Button>
+        {/* This is the updated button section */}
+        {location.pathname !== "/emergency-contacts" && (
+          <Button variant="outline" className="hidden md:flex" asChild>
+            <Link to="/emergency-contacts">Emergency Services</Link>
+          </Button>
+        )}
       </div>
     </header>
   );
