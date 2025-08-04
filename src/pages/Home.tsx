@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Zap, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import waveBottomLeft from "../assets/wave-bottom-left.png"; // 1. Import the wave image
 
 const Home = () => {
   return (
@@ -92,6 +93,15 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* 2. ADD THIS NEW SECTION FOR THE WAVE */}
+      <div className="relative container -mt-20">
+        <img
+          src={waveBottomLeft}
+          alt="Decorative wave"
+          className="w-1/3 md:w-1/4 pointer-events-none"
+        />
+      </div>
 
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
