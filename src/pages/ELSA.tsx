@@ -1,17 +1,15 @@
 import React from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  AlertTriangle, 
-  Brain, 
-  Database, 
-  Layers, 
-  Monitor, 
-  Mic, 
+import {
+  AlertTriangle,
+  Brain,
+  Database,
+  Layers,
+  Monitor,
+  Mic,
   Activity,
   Users,
-  Phone,
-  MapPin
 } from "lucide-react";
 
 const ELSA = () => {
@@ -23,7 +21,7 @@ const ELSA = () => {
       icon: <Brain className="h-6 w-6" />,
     },
     {
-      number: "2", 
+      number: "2",
       title: "Data-Enriched Alerts for First Responders",
       description: "Alerts sent to hospitals or emergency services automatically include key medical details like allergies or pre-existing conditions. Emergency teams arrive not just faster - but better prepared.",
       icon: <Database className="h-6 w-6" />,
@@ -86,7 +84,7 @@ const ELSA = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
             Features of E.L.S.A
           </h2>
-          
+
           <div className="grid gap-8">
             {features.map((feature, index) => (
               <Card key={feature.number} className={`${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:flex items-center overflow-hidden`}>
@@ -116,34 +114,8 @@ const ELSA = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="bg-card rounded-lg p-8 md:p-12 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">
-            Contact Us
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            <div className="flex flex-col items-center">
-              <Phone className="h-8 w-8 text-primary mb-2" />
-              <div className="space-y-1 text-sm">
-                <p>Anshaj Shaji: +91 9778052356</p>
-                <p>George Jose: +91 7907189204</p>
-                <p>Alan Biji Alex: +91 9074297466</p>
-                <p>Aditya R: +91 8590889282</p>
-                <p>Adithyan S.M: +91 9778559818</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <MapPin className="h-8 w-8 text-primary mb-2" />
-              <p className="text-sm">Trivandrum, Kerala</p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <Users className="h-8 w-8 text-primary mb-2" />
-              <p className="text-sm">Marian Engineering College</p>
-            </div>
-          </div>
-        </section>
+        {/* The Contact Us section that was here has been removed */}
+
       </div>
     </div>
   );
