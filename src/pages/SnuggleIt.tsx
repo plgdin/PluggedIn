@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Volume2, Sparkles, Shield, Truck } from "lucide-react";
+import { Star, Volume2, Sparkles, Shield } from "lucide-react";
 import smartbedImage from "../assets/smartbed-sketch.png";
 
 const SnuggleIt = () => {
@@ -223,46 +222,8 @@ const SnuggleIt = () => {
                 </p>
                 <div className="font-semibold">Jennifer L.</div>
                 <div className="text-sm text-muted-foreground">French Bulldog Owner</div>
-              </CardContent> {/* This closing tag was fixed */}
+              </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-primary text-primary-foreground">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-balance">Give Your Pet the Comfort They Deserve</h2>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto text-pretty">
-              Join thousands of happy pet parents who've transformed their pet's sleep and wellbeing with SnuggleIt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary">
-                Order Now - $149
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-              >
-                30-Day Money Back Guarantee
-              </Button>
-            </div>
-            <div className="flex items-center justify-center space-x-8 text-sm opacity-90">
-              <div className="flex items-center space-x-2">
-                <Truck className="h-4 w-4" />
-                <span>Free Shipping</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Shield className="h-4 w-4" />
-                <span>2-Year Warranty</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Heart className="h-4 w-4" />
-                <span>Made with Love</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
