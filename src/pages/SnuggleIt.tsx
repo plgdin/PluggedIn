@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Volume2, Sparkles, Shield } from "lucide-react";
+import { Sparkles, Shield, HeartPulse } from "lucide-react"; // Changed from Volume2
 import smartbedImage from "../assets/smartbed-sketch.png";
 
 const SnuggleIt = () => {
@@ -55,15 +55,15 @@ const SnuggleIt = () => {
                 </div>
                 <CardTitle>Adaptive Climate Control</CardTitle>
                 <CardDescription>
-                  Our smart bed automatically regulates its surface temperature, providing perfect year-round comfort and promoting deeper, more restorative sleep for your pet.
+                  Automatically regulates its temperature for perfect year-round comfort and deeper, more restorative sleep.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Delivers gentle warmth on cold nights and cooling relief during hot days.</li>
-                  <li>Ensures optimal comfort in India's diverse and extreme weather conditions.</li>
-                  <li>Ideal for young, elderly, or medically sensitive pets who struggle to regulate body temperature.</li>
-                  <li>Fully automated or manually controlled through our companion app.</li>
+                  <li>Soothing warmth on cold nights; cooling relief on hot days.</li>
+                  <li>Engineered for India's diverse climate conditions.</li>
+                  <li>Vital support for young, senior, or sensitive pets.</li>
+                  <li>Control manually or set to automatic via the app.</li>
                 </ul>
               </CardContent>
             </Card>
@@ -89,17 +89,18 @@ const SnuggleIt = () => {
             <Card className="border-border bg-background">
               <CardHeader className="text-center">
                 <div className="mx-auto w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
-                  <Volume2 className="h-8 w-8 text-primary" />
+                  {/* Icon has been changed to HeartPulse */}
+                  <HeartPulse className="h-8 w-8 text-primary" />
                 </div>
                 <CardTitle>Intelligent Health Monitoring</CardTitle>
-                <CardDescription> Go beyond comfort with embedded sensors that track key wellness indicators, turning the bed into a proactive health guardian and giving you unparalleled peace of mind.</CardDescription>
+                <CardDescription> Smart sensors track key wellness indicators, turning the bed into a proactive health guardian for your peace of mind.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Precisely tracks sleep patterns, restlessness, and activity levels.</li>
-                  <li>Monitors weight trends over time, a critical early indicator of health.</li>
-                  <li>Delivers simple, actionable insights directly to your smartphone.</li>
-                  <li>Sends smart alerts for unusual changes, helping you spot potential issues early.</li>
+                  <li>Monitors sleep quality, restlessness, and activity.</li>
+                  <li>Tracks weight changes for early health detection.</li>
+                  <li>Delivers simple, actionable insights to the app.</li>
+                  <li>Get smart alerts for any unusual changes.</li>
                 </ul>
               </CardContent>
             </Card>
