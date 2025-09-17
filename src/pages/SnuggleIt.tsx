@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Volume2, Sparkles, Shield } from "lucide-react"; // 'Star' has been removed
+import { Volume2, Sparkles, Shield } from "lucide-react";
 import smartbedImage from "../assets/smartbed-sketch.png";
 
 const SnuggleIt = () => {
@@ -48,6 +48,7 @@ const SnuggleIt = () => {
             </p>
           </div>
 
+          {/* The cards in this grid have been reordered */}
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-border bg-background">
               <CardHeader className="text-center">
@@ -71,24 +72,6 @@ const SnuggleIt = () => {
 
             <Card className="border-border bg-background">
               <CardHeader className="text-center">
-                <div className="mx-auto w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
-                  <Volume2 className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Built-in Speaker</CardTitle>
-                <CardDescription>Wireless Bluetooth speaker for soothing sounds, music, or white noise</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Bluetooth 5.0 connectivity</li>
-                  <li>8-hour battery life</li>
-                  <li>Pre-loaded calming sounds</li>
-                  <li>Volume control via app</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border bg-background">
-              <CardHeader className="text-center">
                 <div className="mx-auto w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
@@ -101,6 +84,24 @@ const SnuggleIt = () => {
                   <li>Machine washable covers</li>
                   <li>Anti-bacterial treatment</li>
                   <li>Durable construction</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border bg-background">
+              <CardHeader className="text-center">
+                <div className="mx-auto w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
+                  <Volume2 className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Built-in Speaker</CardTitle>
+                <CardDescription>Wireless Bluetooth speaker for soothing sounds, music, or white noise</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
+                  <li>Bluetooth 5.0 connectivity</li>
+                  <li>8-hour battery life</li>
+                  <li>Pre-loaded calming sounds</li>
+                  <li>Volume control via app</li>
                 </ul>
               </CardContent>
             </Card>
