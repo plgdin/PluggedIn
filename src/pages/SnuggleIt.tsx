@@ -227,6 +227,18 @@ const SnuggleIt = () => {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-primary text-primary-foreground">
+        <div className="container mx-auto max-w-4xl text-center">
+          <div className="space-y-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-balance">Give Your Pet the Comfort They Deserve</h2>
+            <p className="text-xl opacity-90 max-w-2xl mx-auto text-pretty">
+              Join thousands of happy pet parents who've transformed their pet's sleep and wellbeing with SnuggleIt.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   )
 };
