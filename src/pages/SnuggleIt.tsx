@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Volume2, Sparkles, Shield } from "lucide-react";
+import { Volume2, Sparkles, Shield } from "lucide-react"; // 'Star' has been removed
 import smartbedImage from "../assets/smartbed-sketch.png";
 
 const SnuggleIt = () => {
@@ -159,71 +159,6 @@ const SnuggleIt = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews Section */}
-      <section id="reviews" className="py-20 px-4 bg-card">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">What Pet Parents Say</h2>
-            <div className="flex items-center justify-center space-x-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 text-primary" />
-              ))}
-              <span className="ml-2 text-lg font-semibold">4.9/5 from 2,847 reviews</span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-background">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  "Max used to have terrible anxiety during thunderstorms. Since getting SnuggleIt, he sleeps peacefully
-                  through even the loudest storms!"
-                </p>
-                <div className="font-semibold">Sarah M.</div>
-                <div className="text-sm text-muted-foreground">Golden Retriever Owner</div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-background">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  "The memory foam has been amazing for Luna's hip dysplasia. She's moving better and seems so much more
-                  comfortable."
-                </p>
-                <div className="font-semibold">Mike R.</div>
-                <div className="text-sm text-muted-foreground">German Shepherd Owner</div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-background">
-              <CardContent className="pt-6">
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-4">
-                  "I love that I can play calming music through the speaker. Bella falls asleep so much faster now, and
-                  the lavender scent is divine!"
-                </p>
-                <div className="font-semibold">Jennifer L.</div>
-                <div className="text-sm text-muted-foreground">French Bulldog Owner</div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
