@@ -4,12 +4,13 @@ import logo from "../assets/logo.png";
 
 const Header = () => {
   const location = useLocation();
+  // The items in this array have been reordered
   const navigation = [
     { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
     { name: "E.L.S.A", href: "/elsa" },
+    { name: "SnuggleIt", href: "/snuggleit" },
+    { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "SnuggleIt", href: "/snuggleit" }, // Add this line
   ];
 
   return (
