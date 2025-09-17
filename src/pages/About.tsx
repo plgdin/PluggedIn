@@ -16,19 +16,10 @@ const About = () => {
             </p>
           </div>
 
+          {/* This grid now has the cards reordered */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Our Team</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Five passionate Computer Science students from Marian Engineering College, united by a vision to save lives through technology.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
+            
+            {/* Card 1: Our Mission */}
             <Card className="text-center">
               <CardHeader>
                 <Target className="h-12 w-12 text-primary mx-auto mb-4" />
@@ -41,6 +32,20 @@ const About = () => {
               </CardContent>
             </Card>
 
+            {/* Card 2: Our Team (Moved to the middle) */}
+            <Card className="text-center">
+              <CardHeader>
+                <Users className="h-12 w-12 text-primary mx-auto mb-4" />
+                <CardTitle>Our Team</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Five passionate Computer Science students from Marian Engineering College, united by a vision to save lives through technology.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            {/* Card 3: Our Innovation */}
             <Card className="text-center">
               <CardHeader>
                 <Lightbulb className="h-12 w-12 text-primary mx-auto mb-4" />
