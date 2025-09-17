@@ -33,8 +33,8 @@ const Team = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member) => (
               <Card key={member.name} className="text-center overflow-hidden">
-                {/* 3. Add the <img> tag to display the photo */}
-                <div className="bg-muted h-48 flex items-center justify-center">
+                {/* 3. The height of this div has been changed to h-60 for a 4:5 aspect ratio */}
+                <div className="bg-muted h-60 flex items-center justify-center">
                   <img src={member.image} alt={`Photo of ${member.name}`} className="h-full w-full object-cover" />
                 </div>
                 <CardHeader>
