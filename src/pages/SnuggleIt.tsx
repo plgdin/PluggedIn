@@ -130,8 +130,8 @@ const SnuggleIt = () => {
               <div className="space-y-4">
                 <h3 className="text-2xl font-semibold">Reduced Anxiety</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Aromatherapy and white noise help calm nervous pets, especially during storms, fireworks, or when left
-                  alone.
+                  Soothe your pet with calming aromatherapy, relaxing soundscapes, and your own recorded voice.
+These features ease separation anxiety and stress, ensuring they always feel safe and calm.
                 </p>
               </div>
               <div className="space-y-4">
