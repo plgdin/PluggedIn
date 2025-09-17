@@ -43,29 +43,27 @@ const SnuggleIt = () => {
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold">Revolutionary Features</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-              SnuggleIt isn't just a pet bed - it's a complete comfort experience designed with your pet's wellbeing in
-              mind.
+              More than a bed, SnuggleIt is a smart wellness experience, actively caring for your pet's comfort, health, and emotional wellbeing.
             </p>
           </div>
 
-          {/* The cards in this grid have been reordered */}
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="border-border bg-background">
               <CardHeader className="text-center">
                 <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
                   <Sparkles className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle>Scent Pocket</CardTitle>
+                <CardTitle>Adaptive Climate Control</CardTitle>
                 <CardDescription>
-                  Built-in aromatherapy compartment for calming lavender or your pet's favorite scents
+                  Our smart bed automatically regulates its surface temperature, providing perfect year-round comfort and promoting deeper, more restorative sleep for your pet.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Removable scent cartridges</li>
-                  <li>Natural calming aromatherapy</li>
-                  <li>Reduces anxiety and stress</li>
-                  <li>Long-lasting fragrance release</li>
+                  <li>Delivers gentle warmth on cold nights and cooling relief during hot days.</li>
+                  <li>Ensures optimal comfort in India's diverse and extreme weather conditions.</li>
+                  <li>Ideal for young, elderly, or medically sensitive pets who struggle to regulate body temperature.</li>
+                  <li>Fully automated or manually controlled through our companion app.</li>
                 </ul>
               </CardContent>
             </Card>
@@ -75,15 +73,15 @@ const SnuggleIt = () => {
                 <div className="mx-auto w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-4">
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle>Premium Materials</CardTitle>
-                <CardDescription>Memory foam cushioning with washable, hypoallergenic fabric cover</CardDescription>
+                <CardTitle>Durable & Sustainable Design</CardTitle>
+                <CardDescription>Engineered for exceptional longevity with innovative and eco-friendly materials.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Medical-grade memory foam</li>
-                  <li>Machine washable covers</li>
-                  <li>Anti-bacterial treatment</li>
-                  <li>Durable construction</li>
+                  <li>Self-healing top layer repairs minor scratches</li>
+                  <li>Eco-friendly construction</li>
+                  <li>Removable & machine-washable cover</li>
+                  <li>Built for exceptional longevity</li>
                 </ul>
               </CardContent>
             </Card>
@@ -93,15 +91,15 @@ const SnuggleIt = () => {
                 <div className="mx-auto w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-4">
                   <Volume2 className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle>Built-in Speaker</CardTitle>
-                <CardDescription>Wireless Bluetooth speaker for soothing sounds, music, or white noise</CardDescription>
+                <CardTitle>Intelligent Health Monitoring</CardTitle>
+                <CardDescription> Go beyond comfort with embedded sensors that track key wellness indicators, turning the bed into a proactive health guardian and giving you unparalleled peace of mind.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                  <li>Bluetooth 5.0 connectivity</li>
-                  <li>8-hour battery life</li>
-                  <li>Pre-loaded calming sounds</li>
-                  <li>Volume control via app</li>
+                  <li>Precisely tracks sleep patterns, restlessness, and activity levels.</li>
+                  <li>Monitors weight trends over time, a critical early indicator of health.</li>
+                  <li>Delivers simple, actionable insights directly to your smartphone.</li>
+                  <li>Sends smart alerts for unusual changes, helping you spot potential issues early.</li>
                 </ul>
               </CardContent>
             </Card>
