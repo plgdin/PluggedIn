@@ -25,7 +25,7 @@ const Team = () => {
               Meet the Team
             </h1>
             <p className="text-xl text-muted-foreground">
-              The passionate student developers behind PluggedIn and E.L.S.A.
+              The passionate student developers behind PluggedIn 
             </p>
           </div>
 
