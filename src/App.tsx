@@ -9,7 +9,8 @@ import About from "./pages/About";
 import ELSA from "./pages/ELSA";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import EmergencyContacts from "./pages/EmergencyContacts"; // 1. Add this import
+import EmergencyContacts from "./pages/EmergencyContacts";
+import SnuggleIt from "./pages/SnuggleIt"; // 1. Add this import
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/elsa" element={<ELSA />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/emergency-contacts" element={<EmergencyContacts />} /> {/* 2. Add this route */}
+            <Route path="/emergency-contacts" element={<EmergencyContacts />} />
+            <Route path="/snuggleit" element={<SnuggleIt />} /> {/* 2. Add this new route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

@@ -9,6 +9,7 @@ const Header = () => {
     { name: "About", href: "/about" },
     { name: "E.L.S.A", href: "/elsa" },
     { name: "Contact", href: "/contact" },
+    { name: "SnuggleIt", href: "/snuggleit" }, // Add this line
   ];
 
   return (
@@ -34,7 +35,6 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* This is the updated button section */}
         {location.pathname !== "/emergency-contacts" && (
           <Button variant="outline" className="hidden md:flex" asChild>
             <Link to="/emergency-contacts">Emergency Services</Link>
