@@ -137,7 +137,7 @@ These features ease separation anxiety and stress, ensuring they always feel saf
               <div className="space-y-4">
                 <h3 className="text-2xl font-semibold">Joint Support</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Medical-grade memory foam provides orthopedic support for aging pets and those with joint issues or
+                  Hydrogel with medical-grade memory foam provides orthopedic support for aging pets and those with joint issues or
                   arthritis.
                 </p>
               </div>
