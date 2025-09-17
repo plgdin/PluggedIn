@@ -16,9 +16,7 @@ const About = () => {
             </p>
           </div>
 
-          {/* This grid now has the cards reordered */}
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            
             {/* Card 1: Our Mission */}
             <Card className="text-center">
               <CardHeader>
@@ -32,14 +30,14 @@ const About = () => {
               </CardContent>
             </Card>
 
-            {/* Card 2: Our Team (Moved to the middle) */}
-            <Card className="text-center">
+            {/* Card 2: Our Team (Now highlighted) */}
+            <Card className="text-center border-2 border-primary bg-primary/10 shadow-lg transform scale-105 transition-all duration-300">
               <CardHeader>
                 <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Our Team</CardTitle>
+                <CardTitle className="text-primary">Our Team</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription>
+                <CardDescription className="text-foreground">
                   Five passionate Computer Science students from Marian Engineering College, united by a vision to save lives through technology.
                 </CardDescription>
               </CardContent>
