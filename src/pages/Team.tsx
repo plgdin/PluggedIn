@@ -1,13 +1,19 @@
-// FILE: src/pages/Team.tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { User } from "lucide-react";
 
+// 1. Import the new images from the assets folder
+import anshajImage from "../assets/team/Anshaj.jpg";
+import georgeImage from "../assets/team/George.jpg";
+import alanImage from "../assets/team/Alan.jpg";
+import adityaImage from "../assets/team/Aditya.jpg";
+import adithyanImage from "../assets/team/Adithyan.jpg";
+
+// 2. Add an 'image' property to each team member
 const teamMembers = [
-  { name: "Anshaj Shaji", role: "Project Lead" },
-  { name: "George Jose", role: "Frontend Developer" },
-  { name: "Alan Biji Alex", role: "Backend Developer" },
-  { name: "Aditya R", role: "UI/UX Designer" },
-  { name: "Adithyan S.M", role: "System Architect" },
+  { name: "Anshaj Shaji", role: "Chief Executive Officer", image: anshajImage },
+  { name: "George Joseph", role: "Chief Marketing Officer", image: georgeImage },
+  { name: "Alan Biji Alex", role: "Chief Operating Officer", image: alanImage },
+  { name: "Aditya R", role: "Chief Technology Officer", image: adityaImage },
+  { name: "Adithyan S.M", role: "Chief Financial Officer", image: adithyanImage },
 ];
 
 const Team = () => {
@@ -26,12 +32,15 @@ const Team = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member) => (
-              <Card key={member.name} className="text-center">
+              <Card key={member.name} className="text-center overflow-hidden">
+                {/* 3. Add the <img> tag to display the photo */}
+                <div className="bg-muted h-48 flex items-center justify-center">
+                  <img src={member.image} alt={`Photo of ${member.name}`} className="h-full w-full object-cover" />
+                </div>
                 <CardHeader>
-                  <User className="h-12 w-12 text-primary mx-auto mb-4" />
                   <CardTitle>{member.name}</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="-mt-4">
                   <p className="text-muted-foreground">{member.role}</p>
                 </CardContent>
               </Card>
