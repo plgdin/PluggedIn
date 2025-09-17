@@ -1,4 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { Users, Target, Lightbulb } from "lucide-react";
 
 const About = () => {
@@ -16,9 +18,10 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid md:grid-cols-3 gap-8 mb-16 items-center">
+            
             {/* Card 1: Our Mission */}
-            <Card className="text-center">
+            <Card className="text-center h-full">
               <CardHeader>
                 <Target className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Our Mission</CardTitle>
@@ -30,21 +33,24 @@ const About = () => {
               </CardContent>
             </Card>
 
-            {/* Card 2: Our Team (Now highlighted) */}
-            <Card className="text-center border-2 border-primary bg-primary/10 shadow-lg transform scale-105 transition-all duration-300">
+            {/* Card 2: Our Team (Now contains a button) */}
+            <Card className="text-center h-full">
               <CardHeader>
                 <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle className="text-primary">Our Team</CardTitle>
+                <CardTitle>Our Team</CardTitle>
               </CardHeader>
-              <CardContent>
-                <CardDescription className="text-foreground">
-                  Five passionate Computer Science students from Marian Engineering College, united by a vision to save lives through technology.
+              <CardContent className="flex flex-col items-center justify-center gap-4">
+                <CardDescription>
+                  United by a vision to save lives through technology.
                 </CardDescription>
+                <Button asChild>
+                  <Link to="/team">Meet the Team</Link>
+                </Button>
               </CardContent>
             </Card>
 
             {/* Card 3: Our Innovation */}
-            <Card className="text-center">
+            <Card className="text-center h-full">
               <CardHeader>
                 <Lightbulb className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Our Innovation</CardTitle>
