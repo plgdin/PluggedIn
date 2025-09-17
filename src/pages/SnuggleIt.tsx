@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Heart, Volume2, Sparkles, Shield, Truck } from "lucide-react";
-import smartbedImage from "../assets/smartbed-sketch.png"; // Import the new image
+import smartbedImage from "../assets/smartbed-sketch.png";
 
 const SnuggleIt = () => {
   return (
@@ -23,22 +23,6 @@ const SnuggleIt = () => {
                   Introducing SnuggleIt - the world's first pet bed with built-in aromatherapy and soothing sounds. Give
                   your furry friend the luxury they deserve.
                 </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg">
-                  Shop Now - $149
-                </Button>
-                <Button variant="outline" size="lg">
-                  Watch Demo
-                </Button>
-              </div>
-              <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-1">
-                  <Star className="h-4 w-4 text-primary" />
-                  <span>4.9/5 Rating</span>
-                </div>
-                <div>10,000+ Happy Pets</div>
-                <div>Free Shipping</div>
               </div>
             </div>
             <div className="relative">
@@ -239,7 +223,7 @@ const SnuggleIt = () => {
                 </p>
                 <div className="font-semibold">Jennifer L.</div>
                 <div className="text-sm text-muted-foreground">French Bulldog Owner</div>
-              </CardContent>
+              </CardContent> {/* This closing tag was fixed */}
             </Card>
           </div>
         </div>
