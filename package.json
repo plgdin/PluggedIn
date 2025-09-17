@@ -2,7 +2,7 @@
   "name": "plugged-in-elsa",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://xlannn.github.io/PluggedIn",
+  "homepage": "https://plgdin.github.io/PluggedIn",
   "type": "module",
   "scripts": {
     "dev": "vite",
