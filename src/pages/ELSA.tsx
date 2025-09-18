@@ -11,6 +11,7 @@ import {
   Activity,
   Users,
 } from "lucide-react";
+import AnimatedPage from "../components/AnimatedPage";
 
 const ELSA = () => {
   const features = [
@@ -59,65 +60,64 @@ const ELSA = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container px-4">
-        {/* Header Section */}
-        <section className="text-center mb-20">
-          <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-full mb-6">
-            <AlertTriangle className="h-8 w-8 text-primary" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            What is E.L.S.A?
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            One of the core innovations we're developing is ELSA - Emergency Link for Smart Alert, a context-aware emergency response system designed to provide immediate help in critical situations.
-          </p>
-          <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 max-w-4xl mx-auto">
-            <p className="text-lg text-foreground leading-relaxed">
-              With a single or double press of a discreet button, users can trigger alerts to medical services or law enforcement, depending on the situation. ELSA's intelligent design ensures minimal false alarms, fast communication, and seamless integration with smart environments—making it a life-saving layer of security in modern homes.
+    <AnimatedPage>
+      <div className="min-h-screen py-20">
+        <div className="container px-4">
+          {/* Header Section */}
+          <section className="text-center mb-20">
+            <div className="inline-flex items-center justify-center p-2 bg-primary/10 rounded-full mb-6">
+              <AlertTriangle className="h-8 w-8 text-primary" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+              What is E.L.S.A?
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+              One of the core innovations we're developing is ELSA - Emergency Link for Smart Alert, a context-aware emergency response system designed to provide immediate help in critical situations.
             </p>
-          </div>
-        </section>
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 max-w-4xl mx-auto">
+              <p className="text-lg text-foreground leading-relaxed">
+                With a single or double press of a discreet button, users can trigger alerts to medical services or law enforcement, depending on the situation. ELSA's intelligent design ensures minimal false alarms, fast communication, and seamless integration with smart environments—making it a life-saving layer of security in modern homes.
+              </p>
+            </div>
+          </section>
 
-        {/* Features Section */}
-        <section className="mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
-            Features of E.L.S.A
-          </h2>
+          {/* Features Section */}
+          <section className="mb-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
+              Features of E.L.S.A
+            </h2>
 
-          <div className="grid gap-8">
-            {features.map((feature, index) => (
-              <Card key={feature.number} className={`${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:flex items-center overflow-hidden`}>
-                <div className="md:w-1/2 p-6 md:p-8">
-                  <div className="flex items-center gap-4 mb-4">
-                    <Badge variant="secondary" className="text-lg px-3 py-1">
-                      {feature.number}
-                    </Badge>
-                    <div className="text-primary">
-                      {feature.icon}
+            <div className="grid gap-8">
+              {features.map((feature, index) => (
+                <Card key={feature.number} className={`${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:flex items-center overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg`}>
+                  <div className="md:w-1/2 p-6 md:p-8">
+                    <div className="flex items-center gap-4 mb-4">
+                      <Badge variant="secondary" className="text-lg px-3 py-1">
+                        {feature.number}
+                      </Badge>
+                      <div className="text-primary">
+                        {feature.icon}
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl md:text-2xl mb-4">
+                      {feature.title}
+                    </CardTitle>
+                    <CardDescription className="text-base leading-relaxed">
+                      {feature.description}
+                    </CardDescription>
+                  </div>
+                  <div className="md:w-1/2 bg-primary/5 p-8 md:p-12 flex items-center justify-center">
+                    <div className="text-primary opacity-20">
+                      {React.cloneElement(feature.icon, { className: "h-24 w-24 md:h-32 md:w-32" })}
                     </div>
                   </div>
-                  <CardTitle className="text-xl md:text-2xl mb-4">
-                    {feature.title}
-                  </CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </div>
-                <div className="md:w-1/2 bg-primary/5 p-8 md:p-12 flex items-center justify-center">
-                  <div className="text-primary opacity-20">
-                    {React.cloneElement(feature.icon, { className: "h-24 w-24 md:h-32 md:w-32" })}
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* The Contact Us section that was here has been removed */}
-
+                </Card>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
-    </div>
+    </AnimatedPage>
   );
 };
 

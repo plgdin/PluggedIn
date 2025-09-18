@@ -43,7 +43,7 @@ const About = () => {
                 <CardDescription>
                   United by a vision to save lives through technology.
                 </CardDescription>
-                <Button className="transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+                <Button asChild className="transition-transform duration-300 ease-in-out hover:scale-105">
                   <Link to="/team">Meet the Team</Link>
                 </Button>
               </CardContent>
@@ -136,3 +136,4 @@ const About = () => {
 };
 
 export default About;
+
