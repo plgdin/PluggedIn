@@ -20,7 +20,11 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <img src={logo} alt="Plugged In Logo" className="h-8" />
+          <img 
+            src={logo} 
+            alt="Plugged In Logo" 
+            className="h-8 transition-transform duration-300 ease-in-out hover:scale-110" 
+          />
         </Link>
 
         {/* Desktop Navigation */}
@@ -29,9 +33,9 @@ const Header = () => {
             <Link
               key={item.name}
               to={item.href}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
+              className={`text-sm font-medium transition-all duration-300 ease-in-out hover:text-primary hover:scale-110 ${
                 location.pathname === item.href
-                  ? "text-primary"
+                  ? "text-primary scale-110"
                   : "text-muted-foreground"
               }`}
             >
@@ -68,7 +72,7 @@ const Header = () => {
                 <Link
                   to={item.href}
                   className="text-lg font-medium text-foreground hover:text-primary"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => setIsMenuOpen(false)} // Close menu on click
                 >
                   {item.name}
                 </Link>
