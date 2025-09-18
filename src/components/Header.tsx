@@ -1,12 +1,12 @@
-import { useState } from "react"; // 1. Import useState
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "../assets/logo.png";
-import { Menu, X } from "lucide-react"; // 2. Import Menu and X icons
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // 3. State for mobile menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -23,7 +23,7 @@ const Header = () => {
           <img src={logo} alt="Plugged In Logo" className="h-8" />
         </Link>
 
-        {/* Desktop Navigation (hidden on mobile) */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navigation.map((item) => (
             <Link
@@ -40,14 +40,14 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Desktop Emergency Button (hidden on mobile) */}
+        {/* Desktop Emergency Button */}
         {location.pathname !== "/emergency-contacts" && (
-          <Button variant="outline" className="hidden md:flex" asChild>
+          <Button variant="outline" className="hidden md:flex transition-transform duration-300 ease-in-out hover:scale-105" asChild>
             <Link to="/emergency-contacts">Emergency Services</Link>
           </Button>
         )}
         
-        {/* 4. Hamburger Menu Button (visible only on mobile) */}
+        {/* Hamburger Menu Button */}
         <div className="md:hidden">
           <Button
             variant="ghost"
@@ -59,7 +59,7 @@ const Header = () => {
         </div>
       </div>
       
-      {/* 5. Mobile Menu Panel (conditionally rendered) */}
+      {/* Mobile Menu Panel */}
       {isMenuOpen && (
         <nav className="md:hidden absolute top-16 left-0 w-full bg-background border-b pb-4">
           <ul className="flex flex-col items-center space-y-4 pt-4">
@@ -68,7 +68,7 @@ const Header = () => {
                 <Link
                   to={item.href}
                   className="text-lg font-medium text-foreground hover:text-primary"
-                  onClick={() => setIsMenuOpen(false)} // Close menu on click
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
@@ -76,7 +76,7 @@ const Header = () => {
             ))}
             {location.pathname !== "/emergency-contacts" && (
               <li>
-                <Button variant="outline" asChild>
+                <Button variant="outline" className="transition-transform duration-300 ease-in-out hover:scale-105" asChild>
                   <Link to="/emergency-contacts" onClick={() => setIsMenuOpen(false)}>
                     Emergency Services
                   </Link>

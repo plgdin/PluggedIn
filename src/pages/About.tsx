@@ -21,7 +21,7 @@ const About = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-16 items-center">
             
             {/* Card 1: Our Mission */}
-            <Card className="text-center h-full">
+            <Card className="text-center h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <Target className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Our Mission</CardTitle>
@@ -34,7 +34,7 @@ const About = () => {
             </Card>
 
             {/* Card 2: Our Team (Now contains a button) */}
-            <Card className="text-center h-full">
+            <Card className="text-center h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <Users className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Our Team</CardTitle>
@@ -43,14 +43,14 @@ const About = () => {
                 <CardDescription>
                   United by a vision to save lives through technology.
                 </CardDescription>
-                <Button asChild>
+                <Button className="transition-transform duration-300 ease-in-out hover:scale-105" asChild>
                   <Link to="/team">Meet the Team</Link>
                 </Button>
               </CardContent>
             </Card>
 
             {/* Card 3: Our Innovation */}
-            <Card className="text-center h-full">
+            <Card className="text-center h-full transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <Lightbulb className="h-12 w-12 text-primary mx-auto mb-4" />
                 <CardTitle>Our Innovation</CardTitle>
@@ -92,37 +92,37 @@ const About = () => {
             Our Core Values
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Innovation</h3>
               <p className="text-muted-foreground">
                 Constantly pushing the boundaries of what's possible in emergency response technology.
               </p>
             </div>
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Accessibility</h3>
               <p className="text-muted-foreground">
                 Making life-saving technology affordable and accessible to everyone, everywhere.
               </p>
             </div>
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Reliability</h3>
               <p className="text-muted-foreground">
                 Building systems you can depend on when every second counts.
               </p>
             </div>
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Intelligence</h3>
               <p className="text-muted-foreground">
                 Creating smart solutions that understand context and respond appropriately.
               </p>
             </div>
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Security</h3>
               <p className="text-muted-foreground">
                 Ensuring your safety data is protected with the highest security standards.
               </p>
             </div>
-            <div className="p-6 border rounded-lg">
+            <div className="p-6 border rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <h3 className="text-xl font-semibold text-foreground mb-3">Impact</h3>
               <p className="text-muted-foreground">
                 Measuring our success by the lives we help save and protect.

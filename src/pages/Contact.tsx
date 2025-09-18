@@ -21,7 +21,7 @@ const Contact = () => {
         </section>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form - NOW POINTS TO YOUR FORMSPREE LINK */}
+          {/* Contact Form */}
           <Card>
             <CardHeader>
               <CardTitle>Send us a Message</CardTitle>
@@ -30,7 +30,6 @@ const Contact = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {/* This form now points to your unique Formspree URL */}
               <form action="https://formspree.io/f/mblkzrla" method="POST" className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -65,7 +64,7 @@ const Contact = () => {
                   <Textarea id="message" name="message" rows={4} placeholder="Tell us about your emergency service needs..." required />
                 </div>
 
-                <Button type="submit" className="w-full">Send Message</Button>
+                <Button type="submit" className="w-full transition-transform duration-300 ease-in-out hover:scale-105">Send Message</Button>
               </form>
             </CardContent>
           </Card>
@@ -73,7 +72,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <Link to="/emergency-contacts" className="block hover:opacity-80 transition-opacity">
-              <Card>
+              <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Phone className="h-5 w-5 text-primary" />
@@ -86,7 +85,7 @@ const Contact = () => {
               </Card>
             </Link>
 
-            <Card>
+            <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-primary" />
@@ -101,7 +100,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-primary" />
@@ -115,7 +114,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Mail className="h-5 w-5 text-primary" />
