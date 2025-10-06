@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+// 1. Changed from HashRouter to BrowserRouter
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 
 // Components
@@ -16,13 +17,12 @@ import About from "./pages/About";
 import ELSA from "./pages/ELSA";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import EmergencyContacts from "./pages/EmergencyContacts";
 import SnuggleIt from "./pages/SnuggleIt";
 import Team from "./pages/Team";
+import AIChat from "./pages/AIChat";
 
 const queryClient = new QueryClient();
 
-// This new component will handle the animated routes
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
@@ -32,21 +32,22 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/elsa" element={<ELSA />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/emergency-contacts" element={<EmergencyContacts />} />
         <Route path="/snuggleit" element={<SnuggleIt />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/chat" element={<AIChat />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );
-}
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <HashRouter>
+      {/* 2. Changed from HashRouter to BrowserRouter */}
+      <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen bg-background flex flex-col">
           <Header />
@@ -55,9 +56,10 @@ const App = () => (
           </main>
           <Footer />
         </div>
-      </HashRouter>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
 
 export default App;
+

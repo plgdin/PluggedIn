@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import logo from "../assets/logo.png";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Bot } from "lucide-react"; // 1. Import the Bot icon
 
 const Header = () => {
   const location = useLocation();
@@ -19,12 +19,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <img 
-            src={logo} 
-            alt="Plugged In Logo" 
-            className="h-8 transition-transform duration-300 ease-in-out hover:scale-110" 
-          />
+        <Link to="/" className="flex items-center space-x-2 transition-transform duration-300 ease-in-out hover:scale-110">
+          <img src={logo} alt="Plugged In Logo" className="h-8" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -44,12 +40,12 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Desktop Emergency Button */}
-        {location.pathname !== "/emergency-contacts" && (
-          <Button variant="outline" className="hidden md:flex transition-transform duration-300 ease-in-out hover:scale-105" asChild>
-            <Link to="/emergency-contacts">Emergency Services</Link>
-          </Button>
-        )}
+        {/* 2. Add the Desktop AI Assistant Button */}
+        <Button className="hidden md:flex transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+          <Link to="/chat">
+            <Bot className="mr-2 h-4 w-4" /> AI Assistant
+          </Link>
+        </Button>
         
         {/* Hamburger Menu Button */}
         <div className="md:hidden">
@@ -72,21 +68,20 @@ const Header = () => {
                 <Link
                   to={item.href}
                   className="text-lg font-medium text-foreground hover:text-primary"
-                  onClick={() => setIsMenuOpen(false)} // Close menu on click
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               </li>
             ))}
-            {location.pathname !== "/emergency-contacts" && (
-              <li>
-                <Button variant="outline" className="transition-transform duration-300 ease-in-out hover:scale-105" asChild>
-                  <Link to="/emergency-contacts" onClick={() => setIsMenuOpen(false)}>
-                    Emergency Services
-                  </Link>
-                </Button>
-              </li>
-            )}
+            {/* 3. Add the Mobile AI Assistant Button */}
+            <li>
+              <Button className="transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+                <Link to="/chat" onClick={() => setIsMenuOpen(false)}>
+                  <Bot className="mr-2 h-4 w-4" /> AI Assistant
+                </Link>
+              </Button>
+            </li>
           </ul>
         </nav>
       )}
@@ -95,3 +90,4 @@ const Header = () => {
 };
 
 export default Header;
+
