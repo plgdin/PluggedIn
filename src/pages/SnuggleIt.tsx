@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Shield, HeartPulse } from "lucide-react";
@@ -7,6 +8,16 @@ import AnimatedPage from "../components/AnimatedPage";
 const SnuggleIt = () => {
   return (
     <AnimatedPage>
+
+      {/* SEO META TAGS */}
+      <Helmet>
+        <title>SnuggleIt Smart Pet Bed | Plugged In (PLGDIN)</title>
+        <meta
+          name="description"
+          content="SnuggleIt by Plugged In (PLGDIN) is a smart pet bed with aromatherapy, soothing sounds, climate control, and intelligent health monitoring to improve your pet’s comfort and wellbeing."
+        />
+      </Helmet>
+
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="py-20 px-4">
@@ -181,3 +192,4 @@ These features ease separation anxiety and stress, ensuring they always feel saf
 };
 
 export default SnuggleIt;
+  
