@@ -17,12 +17,10 @@ const Contact = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    
-    // Convert form data to JSON for FormSubmit
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // UPDATED: Now pointing to elsaplgdn@gmail.com
+      // 1. Send data to FormSubmit (Email + Webhook)
       const response = await fetch("https://formsubmit.co/ajax/elsaplgdn@gmail.com", {
         method: "POST",
         headers: { 
@@ -36,7 +34,7 @@ const Contact = () => {
         toast.success("Message sent successfully!", {
           description: "We'll get back to you within 24 hours."
         });
-        (e.target as HTMLFormElement).reset(); // Clear the form
+        (e.target as HTMLFormElement).reset(); // Clear form
       } else {
         const errorData = await response.json();
         console.error("FormSubmit Error:", errorData);
@@ -67,7 +65,6 @@ const Contact = () => {
 
       <div className="min-h-screen py-20">
         <div className="container px-4">
-          {/* Header */}
           <section className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               Contact Us
@@ -78,7 +75,6 @@ const Contact = () => {
           </section>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
             <Card>
               <CardHeader>
                 <CardTitle>Send us a Message</CardTitle>
@@ -89,18 +85,18 @@ const Contact = () => {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   
-                  {/* --- FormSubmit.co Hidden Configuration --- */}
-                  {/* 1. Disable Captcha (Optional: remove to enable) */}
+                  {/* --- CONFIGURATION FIELDS --- */}
                   <input type="hidden" name="_captcha" value="false" />
-                  
-                  {/* 2. Custom Subject Line */}
                   <input type="hidden" name="_subject" value="New Inquiry from PluggedIn Website!" />
-                  
-                  {/* 3. HoneyPot Spam Protection */}
                   <input type="text" name="_honey" style={{ display: "none" }} />
-                  
-                  {/* 4. Email Template Style */}
                   <input type="hidden" name="_template" value="table" />
+
+                  {/* YOUR GOOGLE SCRIPT WEBHOOK URL */}
+                  <input 
+                    type="hidden" 
+                    name="_webhook" 
+                    value="https://script.google.com/macros/s/AKfycbweceuhA-JO9f-3FghnuZytFEhqozcZpxkJgsPgs9fmoTLw1drfowUIhLz2_094QQXo/exec" 
+                  />
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -170,7 +166,6 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Contact Information */}
             <div className="space-y-8">
               <a
                 href="https://www.instagram.com/plgd.in?igsh=NWZ6d29jc3V0bzBx"
