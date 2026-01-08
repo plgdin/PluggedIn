@@ -91,11 +91,11 @@ const Contact = () => {
                   <input type="text" name="_honey" style={{ display: "none" }} />
                   <input type="hidden" name="_template" value="table" />
 
-                  {/* YOUR GOOGLE SCRIPT WEBHOOK URL */}
+                  {/* UPDATED: YOUR NEW GOOGLE SCRIPT URL */}
                   <input 
                     type="hidden" 
                     name="_webhook" 
-                    value="https://script.google.com/macros/s/AKfycbxpTf1R2Xf-J_vJAjrSoOqDldXHEDoysb6NtgWIqDr0Uh3jtjb5LdcUEuPXE2_FrNtI/exec" 
+                    value="https://script.google.com/macros/s/AKfycbztm4CPmRc-0W4qYUNa7mGm77reaIht6zLkdpRcfDr53ZMH9m2ITFiZ70AGhO3p4KBs/exec" 
                   />
 
                   <div className="grid md:grid-cols-2 gap-4">
