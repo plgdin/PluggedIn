@@ -127,15 +127,15 @@ const Contact = () => {
                       defaultValue=""
                     >
                       <option value="" disabled>Select service or product</option>
-                      <option value="product_snuggleit">Product Inquiry: SnuggleIt</option>
-                      <option value="product_elsa">Product Inquiry: E.L.S.A.</option>
-                      <option value="website_dev">Service: Website Development</option>
-                      <option value="app_dev">Service: App Development</option>
-                      <option value="software_dev">Service: Software Development</option>
-                      <option value="iot">Service: IoT Solutions</option>
-                      <option value="custom_device">Service: Custom Devices</option>
-                      <option value="custom_project">Service: Custom Projects</option>
-                      <option value="general">General Inquiry</option>
+                      <option value="Product Inquiry: SnuggleIt">Product Inquiry: SnuggleIt</option>
+                      <option value="Product Inquiry: E.L.S.A.">Product Inquiry: E.L.S.A.</option>
+                      <option value="Service: Website Development">Service: Website Development</option>
+                      <option value="Service: App Development">Service: App Development</option>
+                      <option value="Service: Software Development">Service: Software Development</option>
+                      <option value="Service: IoT Solutions">Service: IoT Solutions</option>
+                      <option value="Service: Custom Devices">Service: Custom Devices</option>
+                      <option value="Service: Custom Projects">Service: Custom Projects</option>
+                      <option value="General Inquiry">General Inquiry</option>
                     </select>
                   </div>
                   <div className="space-y-2">
