@@ -95,7 +95,7 @@ const Contact = () => {
                   <input 
                     type="hidden" 
                     name="_webhook" 
-                    value="https://script.google.com/macros/s/AKfycbztm4CPmRc-0W4qYUNa7mGm77reaIht6zLkdpRcfDr53ZMH9m2ITFiZ70AGhO3p4KBs/exec" 
+                    value="https://script.google.com/macros/s/AKfycbx7r38x2oTh0Nf_LePjPv4R-g2akqth9YzsEblLM5dIBoZeupvE6oVJysVWPOnM_eqJ/exec" 
                   />
 
                   <div className="grid md:grid-cols-2 gap-4">
