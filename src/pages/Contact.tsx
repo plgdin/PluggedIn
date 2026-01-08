@@ -105,16 +105,16 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name</Label>
-                      <Input id="name" name="name" placeholder="John Doe" required disabled={isSubmitting} />
+                      <Input id="name" name="name" placeholder="Name" required disabled={isSubmitting} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" name="email" placeholder="john@example.com" required disabled={isSubmitting} />
+                      <Input id="email" type="email" name="email" placeholder="" required disabled={isSubmitting} />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" name="phone" placeholder="+91 98765 43210" required disabled={isSubmitting} />
+                    <Input id="phone" type="tel" name="phone" placeholder="" required disabled={isSubmitting} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="inquiryType">Inquiry Type</Label>
