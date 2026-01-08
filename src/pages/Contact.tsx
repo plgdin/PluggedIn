@@ -1,16 +1,61 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, MapPin, Clock, Instagram } from "lucide-react"; // Mail is no longer used, could be removed
+import { MapPin, Clock, Instagram, Loader2, Send } from "lucide-react";
 import AnimatedPage from "../components/AnimatedPage";
+import { toast } from "sonner"; 
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    
+    // Convert form data to JSON for FormSubmit
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      // UPDATED: Now pointing to elsaplgdn@gmail.com
+      const response = await fetch("https://formsubmit.co/ajax/elsaplgdn@gmail.com", {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success("Message sent successfully!", {
+          description: "We'll get back to you within 24 hours."
+        });
+        (e.target as HTMLFormElement).reset(); // Clear the form
+      } else {
+        const errorData = await response.json();
+        console.error("FormSubmit Error:", errorData);
+        toast.error("Failed to send message.", {
+          description: "Please try again or email us directly."
+        });
+      }
+    } catch (error) {
+      console.error("Network Error:", error);
+      toast.error("Network error.", {
+        description: "Please check your connection and try again."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <AnimatedPage>
-
       {/* SEO META TAGS */}
       <Helmet>
         <title>Contact Us | Plugged In (PLGDIN)</title>
@@ -33,7 +78,7 @@ const Contact = () => {
           </section>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form (Remains unchanged) */}
+            {/* Contact Form */}
             <Card>
               <CardHeader>
                 <CardTitle>Send us a Message</CardTitle>
@@ -42,20 +87,34 @@ const Contact = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form action="https://formspree.io/f/mblkzrla" method="POST" className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  
+                  {/* --- FormSubmit.co Hidden Configuration --- */}
+                  {/* 1. Disable Captcha (Optional: remove to enable) */}
+                  <input type="hidden" name="_captcha" value="false" />
+                  
+                  {/* 2. Custom Subject Line */}
+                  <input type="hidden" name="_subject" value="New Inquiry from PluggedIn Website!" />
+                  
+                  {/* 3. HoneyPot Spam Protection */}
+                  <input type="text" name="_honey" style={{ display: "none" }} />
+                  
+                  {/* 4. Email Template Style */}
+                  <input type="hidden" name="_template" value="table" />
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name</Label>
-                      <Input id="name" name="name" required />
+                      <Input id="name" name="name" placeholder="John Doe" required disabled={isSubmitting} />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" name="email" required />
+                      <Input id="email" type="email" name="email" placeholder="john@example.com" required disabled={isSubmitting} />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" name="phone" required />
+                    <Input id="phone" type="tel" name="phone" placeholder="+91 98765 43210" required disabled={isSubmitting} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="inquiryType">Inquiry Type</Label>
@@ -64,8 +123,10 @@ const Contact = () => {
                       name="inquiryType"
                       required
                       className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={isSubmitting}
+                      defaultValue=""
                     >
-                      <option value="" disabled selected>Select service or product</option>
+                      <option value="" disabled>Select service or product</option>
                       <option value="product_snuggleit">Product Inquiry: SnuggleIt</option>
                       <option value="product_elsa">Product Inquiry: E.L.S.A.</option>
                       <option value="website_dev">Service: Website Development</option>
@@ -79,10 +140,31 @@ const Contact = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="message">Message</Label>
-                    <Textarea id="message" name="message" rows={4} placeholder="Tell us about your inquiry..." required />
+                    <Textarea 
+                      id="message" 
+                      name="message" 
+                      rows={4} 
+                      placeholder="Tell us about your inquiry..." 
+                      required 
+                      disabled={isSubmitting}
+                    />
                   </div>
-                  <Button type="submit" className="w-full transition-transform duration-300 ease-in-out hover:scale-105">
-                    Send Message
+                  <Button 
+                    type="submit" 
+                    className="w-full transition-transform duration-300 ease-in-out hover:scale-105"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
