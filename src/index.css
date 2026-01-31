@@ -1,55 +1,39 @@
+/* 1. Import fonts at the very top */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 40 33% 94%; /* Light Beige Background */
-    --foreground: 15 30% 23%; /* Dark Brown Text */
-    --card: 0 0% 100%; /* White Cards for contrast */
-    --card-foreground: 15 30% 23%;
+    /* Background: Pure White */
+    --background: 0 0% 100%; 
+    
+    /* Foreground/Text: Black (#000000) for white backgrounds */
+    --foreground: 0 0% 0%; 
+    
+    /* Card & UI elements */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
     --popover: 0 0% 100%;
-    --popover-foreground: 15 30% 23%;
-    --primary: 18 37% 40%; /* Mid-tone Brown for Accents */
-    --primary-foreground: 40 33% 94%; /* Light Beige text on buttons */
-    --secondary: 40 15% 90%; /* Lighter Beige */
-    --secondary-foreground: 15 30% 23%;
-    --muted: 40 10% 85%;
-    --muted-foreground: 15 20% 40%;
-    --accent: 40 20% 88%;
-    --accent-foreground: 15 30% 23%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 40 20% 85%;
-    --input: 40 20% 85%;
-    --ring: 18 37% 40%;
+    --popover-foreground: 0 0% 0%;
+    
+    /* Primary (Buttons): Black background with Gold text */
+    --primary: 0 0% 0%; 
+    --primary-foreground: 42 77% 62%; /* Gold text on Black buttons */
+    
+    /* Secondary/Muted: Used for Gold highlights */
+    --secondary: 42 77% 62%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 98%;
+    --muted-foreground: 42 77% 62%; /* Gold for sub-text */
+    
+    /* Borders: Black for structure */
+    --border: 0 0% 0%; 
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
     --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 15 30% 23%; /* Dark Brown Background */
-    --foreground: 40 33% 94%; /* Light Beige Text */
-    --card: 15 30% 28%; /* Slightly Lighter Brown Cards */
-    --card-foreground: 40 33% 94%;
-    --popover: 15 30% 23%;
-    --popover-foreground: 40 33% 94%;
-    --primary: 18 37% 50%; /* Brighter Brown for Accents */
-    --primary-foreground: 15 30% 15%;
-    --secondary: 15 30% 35%;
-    --secondary-foreground: 40 33% 94%;
-    --muted: 15 30% 35%;
-    --muted-foreground: 40 20% 75%;
-    --accent: 15 30% 35%;
-    --accent-foreground: 40 33% 94%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 15 30% 35%;
-    --input: 15 30% 35%;
-    --ring: 18 37% 50%;
   }
 }
 
@@ -59,7 +43,18 @@ All colors MUST be HSL.
   }
 
   body {
+    /* 2. Set Lato as the default font for the entire site */
+    font-family: 'Lato', sans-serif;
     @apply bg-background text-foreground;
   }
-}
 
+  /* 3. Utility class for Serif headings */
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* 4. Utility class for standard body font */
+  .font-lato {
+    font-family: 'Lato', sans-serif;
+  }
+}

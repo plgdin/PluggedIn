@@ -1,16 +1,14 @@
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Heart, Shield, DollarSign, Zap, Users, CheckCircle, PawPrint, Siren, Code, Smartphone, Cpu, CloudCog, Palette } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnimatedPage from "../components/AnimatedPage";
 import waveImage from "../assets/wave.png";
 import { motion, Variants, Transition } from "framer-motion";
-// 1. IMPORT ADDED HERE
 import { Helmet } from "react-helmet-async";
 
 const Home = () => {
-
   const standardTransition: Transition = { duration: 0.6, ease: "easeOut" };
 
   const slideInFromLeft: Variants = {
@@ -23,11 +21,8 @@ const Home = () => {
     animate: { opacity: 1, x: 0 },
   };
 
-
   return (
     <AnimatedPage>
-      
-      {/* 2. HELMET BLOCK ADDED HERE */}
       <Helmet>
         <title>Plugged In (PLGDIN) | Smart Products, IoT & Software Solutions</title>
         <meta
@@ -36,42 +31,39 @@ const Home = () => {
         />
       </Helmet>
 
-      {/* Added overflow-x-hidden to prevent the scrollbar glitch during animations */}
-      <div className="relative min-h-screen bg-background overflow-x-hidden">
-
-        {/* Hero Section with slide-down animation */}
+      <div className="relative min-h-screen bg-white overflow-x-hidden font-lato">
+        {/* Hero Section */}
         <motion.section
           className="relative py-20 px-4 md:py-32 lg:py-40 min-h-[60vh] flex items-center overflow-hidden"
           initial={{ opacity: 0, y: "-50vh" }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
-          {/* ... Hero content ... */}
-           <div className="container mx-auto text-center">
+          <div className="container mx-auto text-center">
+            {/* Wave Image updated: Increased opacity and removed grayscale filter */}
             <div className="absolute left-0 bottom-0 w-[400px] md:w-[500px] lg:w-[600px] xl:w-[700px] z-0 pointer-events-none -translate-x-[25%] md:-translate-x-[15%]">
               <img
                 src={waveImage}
                 alt="Decorative wave element"
-                className="w-full h-auto object-contain opacity-10 md:opacity-15"
+                className="w-full h-auto object-contain opacity-50" 
               />
             </div>
             <div className="relative z-10">
-              <Badge variant="secondary" className="mb-4">
-                Innovative Products for Comfort & Safety
-              </Badge>
-              <h1 className="font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-balance">
+              <h1 className="font-playfair font-bold text-4xl md:text-6xl lg:text-7xl mb-6 text-balance text-black leading-tight drop-shadow-sm">
                 Building Products That
-                <span className="text-primary block">Matter</span>
+                <span className="text-[#E7BB55] block">Matter</span>
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto text-pretty">
+              
+              <p className="font-sans tracking-wider text-lg md:text-xl text-black/70 mb-8 max-w-3xl mx-auto text-pretty leading-relaxed">
                 At PluggedIn, we're focused on creating innovative products that enhance comfort and safety. From SnuggleIt
-                pet beds to E.L.S.A. emergency devices—we're building solutions that make a real difference.
+                pet beds to E.L.S.A. emergency devices we're building solutions that make a real difference.
               </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="text-lg px-8 transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+                <Button size="lg" className="font-sans tracking-wider text-sm px-8 bg-black text-[#E7BB55] hover:opacity-90 transition-transform duration-300 ease-in-out hover:scale-105" asChild>
                   <Link to="/ELSA">Explore Products <ArrowRight className="ml-2 h-5 w-5" /></Link>
                 </Button>
-                <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+                <Button variant="outline" size="lg" className="font-sans tracking-wider text-sm px-8 bg-transparent border-black text-black hover:bg-black hover:text-[#E7BB55] transition-transform duration-300 ease-in-out hover:scale-105" asChild>
                   <Link to="/about">Learn More</Link>
                 </Button>
               </div>
@@ -79,222 +71,100 @@ const Home = () => {
           </div>
         </motion.section>
 
-        {/* --- Features Grid (Slide In From Left - Animate on Load) --- */}
+        {/* Features Grid */}
         <motion.section
-          className="py-16 px-4 bg-muted/30"
+          className="py-16 px-4 bg-white"
           initial="initial"
           animate="animate"
           variants={slideInFromLeft}
           transition={{ ...standardTransition, delay: 0.5 }}
         >
-          {/* ... Features Grid content ... */}
           <div className="container mx-auto">
             <div className="text-center mb-12">
-              <h2 className="font-bold text-3xl md:text-4xl mb-4">Why Choose PluggedIn?</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                We're committed to creating products that combine innovation with practicality, comfort with reliability.
+              <h2 className="font-playfair font-bold text-3xl md:text-4xl mb-4 text-black">Why Choose PluggedIn?</h2>
+              
+              <p className="font-sans tracking-wider text-lg text-black/60 max-w-2xl mx-auto">
+                We're committed to creating products that combine innovation with practicality.
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="border-0 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4"><Heart className="h-6 w-6 text-primary" /></div>
-                  <CardTitle>Comfort First</CardTitle>
-                  <CardDescription>Every product is designed with comfort and user experience as the top priority.</CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="border-0 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4"><Shield className="h-6 w-6 text-primary" /></div>
-                  <CardTitle>Safety & Reliability</CardTitle>
-                  <CardDescription>Built with safety in mind, ensuring reliable performance when it matters most.</CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="border-0 shadow-sm transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4"><DollarSign className="h-6 w-6 text-primary" /></div>
-                  <CardTitle>Budget-Conscious</CardTitle>
-                  <CardDescription>Quality products without the premium price tag—innovation for everyone.</CardDescription>
-                </CardHeader>
-              </Card>
+              {[
+                { icon: <Heart />, title: "Comfort First", desc: "Every product is designed with comfort and user experience as the top priority." },
+                { icon: <Shield />, title: "Safety & Reliability", desc: "Built with safety in mind, ensuring reliable performance when it matters most" },
+                { icon: <DollarSign />, title: "Budget-Conscious", desc: "Quality products without the premium price tag—innovation for everyone." }
+              ].map((feature, i) => (
+                <Card key={i} className="border-black/10 shadow-sm bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="h-12 w-12 rounded-lg bg-black flex items-center justify-center mb-4 text-[#E7BB55]">{feature.icon}</div>
+                    <CardTitle className="font-playfair text-2xl text-black">{feature.title}</CardTitle>
+                    <CardDescription className="font-sans tracking-wider text-black/70 leading-relaxed">{feature.desc}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </div>
         </motion.section>
 
-        {/* --- Services Section (Slide In From Right on Scroll) --- */}
+        {/* Services Section */}
         <motion.section
           id="services"
-          className="py-20 px-4 bg-muted/30"
+          className="py-20 px-4 bg-white"
           initial="initial"
           whileInView="animate"
           variants={slideInFromRight}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={standardTransition}
-        >
-          {/* ... Services Section content ... */}
-           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-bold text-3xl md:text-4xl mb-4">Our Services</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-pretty">
-                Beyond our core products, we leverage our technical expertise to offer a range of custom development services. Let us bring your vision to reality.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><Code className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>Website Development</CardTitle>
-                   <CardDescription>Modern, responsive, and performance-optimized websites tailored to your business needs.</CardDescription>
-                 </CardHeader>
-               </Card>
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><Smartphone className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>App Development</CardTitle>
-                   <CardDescription>Native and cross-platform mobile applications designed for seamless user experiences.</CardDescription>
-                 </CardHeader>
-               </Card>
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><CloudCog className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>Software Development</CardTitle>
-                   <CardDescription>Custom software solutions built to solve your unique business challenges.</CardDescription>
-                 </CardHeader>
-               </Card>
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><Zap className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>IoT Solutions</CardTitle>
-                   <CardDescription>Integrating smart devices and connectivity to build innovative Internet of Things applications.</CardDescription>
-                 </CardHeader>
-               </Card>
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><Cpu className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>Custom Devices & Projects</CardTitle>
-                   <CardDescription>From concept to prototype, we build bespoke hardware and software integrations.</CardDescription>
-                 </CardHeader>
-               </Card>
-               <Card className="border-0 shadow-sm text-center transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <CardHeader>
-                   <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mb-4"><Palette className="h-8 w-8 text-primary" /></div>
-                   <CardTitle>Tech Consulting</CardTitle>
-                   <CardDescription>Expert advice to guide your technology decisions and project planning.</CardDescription>
-                 </CardHeader>
-               </Card>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* --- Products Section (Slide In From Left on Scroll) --- */}
-        <motion.section
-          id="products"
-          className="py-20 px-4"
-          initial="initial"
-          whileInView="animate"
-          variants={slideInFromLeft}
           viewport={{ once: true, amount: 0.2 }}
           transition={standardTransition}
         >
           <div className="container mx-auto">
-             <div className="text-center mb-16">
-               <h2 className="font-bold text-3xl md:text-4xl mb-4">Our Products</h2>
-               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                 From prototype to innovation—meet SnuggleIt and E.L.S.A., our flagship products designed for comfort and safety.
-               </p>
-             </div>
-             <div className="grid lg:grid-cols-2 gap-8">
-               <Card className="overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <div className="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center"><PawPrint className="h-16 w-16 text-primary/60" /></div>
-                 <CardHeader><CardTitle className="text-2xl">SnuggleIt</CardTitle><CardDescription className="text-base">The ultimate comfort pet bed designed with your furry friend's needs in mind. Premium materials, thoughtful design, and unmatched coziness.</CardDescription></CardHeader>
-                 <CardContent>
-                   <ul className="space-y-2 mb-6">
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Premium comfort materials</span></li>
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Durable & easy to clean</span></li>
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Multiple sizes available</span></li>
-                   </ul>
-                   {/* REMOVED hover:scale-105 from SnuggleIt button */}
-                   <Button className="w-full transition-transform duration-300 ease-in-out" asChild>
-                     <Link to="/snuggleit">Learn More</Link>
-                   </Button>
-                 </CardContent>
-               </Card>
-               <Card className="overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                 <div className="h-48 bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center"><Siren className="h-24 w-24 text-primary/60" /></div>
-                 <CardHeader><CardTitle className="text-2xl">E.L.S.A.</CardTitle><CardDescription className="text-base">Enhanced emergency button with advanced features beyond traditional panic buttons. Reliable, feature-rich, and designed for when every second counts.</CardDescription></CardHeader>
-                 <CardContent>
-                   <ul className="space-y-2 mb-6">
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Instant emergency alerts</span></li>
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Enhanced features beyond basic buttons</span></li>
-                     <li className="flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /><span className="text-sm">Reliable when it matters most</span></li>
-                   </ul>
-                   {/* REMOVED hover:scale-105 from ELSA button */}
-                   <Button className="w-full transition-transform duration-300 ease-in-out" asChild>
-                     <Link to="/elsa">Learn More</Link>
-                   </Button>
-                 </CardContent>
-               </Card>
-             </div>
+            <div className="text-center mb-16">
+              <h2 className="font-playfair font-bold text-3xl md:text-4xl mb-4 text-black">Our Services</h2>
+              
+              <p className="font-sans tracking-wider text-lg text-black/60 max-w-3xl mx-auto text-pretty">
+                Beyond our core products, we leverage our technical expertise to offer a range of custom development services.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { icon: <Code />, title: "Website Development" },
+                { icon: <Smartphone />, title: "App Development" },
+                { icon: <CloudCog />, title: "Software Development" },
+                { icon: <Zap />, title: "IoT Solutions" },
+                { icon: <Cpu />, title: "Custom Devices" },
+                { icon: <Palette />, title: "Tech Consulting" }
+              ].map((service, i) => (
+                <Card key={i} className="border-black/10 shadow-sm text-center bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="mx-auto h-16 w-16 rounded-full bg-black flex items-center justify-center mb-4 text-[#E7BB55]">{service.icon}</div>
+                    <CardTitle className="font-playfair text-xl text-black">{service.title}</CardTitle>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
           </div>
         </motion.section>
 
-        {/* --- About Section (Slide In From Right on Scroll) --- */}
-        <motion.section
-          id="about"
-          className="py-20 px-4 bg-muted/30"
-          initial="initial"
-          whileInView="animate"
-          variants={slideInFromRight}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={standardTransition}
-        >
-           {/* ... About section content ... */}
-            <div className="container mx-auto">
-             <div className="grid lg:grid-cols-2 gap-12 items-center">
-               <div>
-                 <h2 className="font-bold text-3xl md:text-4xl mb-6">Small Team, Big Vision</h2>
-                 <p className="text-lg text-muted-foreground mb-6">
-                   We're not a big team yet—but we're focused, committed, and learning fast. We've already built working systems, tested early versions, and are eager to take SnuggleIt and E.L.S.A. from prototype to something truly innovative.
-                 </p>
-
-                 <div className="flex items-center gap-4 mb-8">
-                   <div className="flex items-center gap-2"><Users className="h-5 w-5 text-primary" /><span className="font-medium">Focused Team</span></div>
-                   <div className="flex items-center gap-2"><Zap className="h-5 w-5 text-primary" /><span className="font-medium">Rapid Innovation</span></div>
-                 </div>
-                 <Button size="lg" className="transition-transform duration-300 ease-in-out hover:scale-105" asChild><Link to="/team">Join Our Journey <ArrowRight className="ml-2 h-5 w-5" /></Link></Button>
-               </div>
-               <div className="relative">
-                 <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                   <div className="text-center">
-                     <div className="text-4xl font-bold text-primary mb-2">PluggedIn</div>
-                     <div className="text-muted-foreground">Building Products That Matter</div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-        </motion.section>
-
-        {/* --- CTA Section (Slide In From Left on Scroll) --- */}
+        {/* CTA Section */}
         <motion.section
           id="contact"
-          className="py-20 px-4"
+          className="py-20 px-4 bg-white"
           initial="initial"
           whileInView="animate"
           variants={slideInFromLeft}
           viewport={{ once: true, amount: 0.2 }}
           transition={standardTransition}
         >
-           {/* ... CTA section content ... */}
-            <div className="container mx-auto text-center">
-             <h2 className="font-bold text-3xl md:text-4xl mb-6">Ready to Learn More?</h2>
-             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-               Join us in building innovative products that enhance comfort and safety. Get updates on our latest developments and be the first to know when our products are available.
-             </p>
-             <div className="flex justify-center">
-               <Button size="lg" className="text-lg px-8 transition-transform duration-300 ease-in-out hover:scale-105" asChild><Link to="/contact">Contact Us</Link></Button>
-             </div>
-           </div>
+          <div className="container mx-auto text-center">
+            <h2 className="font-playfair font-bold text-3xl md:text-4xl mb-6 text-black">Ready to Learn More?</h2>
+            
+            <p className="font-sans tracking-wider text-lg text-black/60 mb-8 max-w-2xl mx-auto">
+              Join us in building innovative products that enhance comfort and safety.
+            </p>
+            <div className="flex justify-center">
+              <Button size="lg" className="font-sans tracking-wider text-sm px-8 bg-black text-[#E7BB55] transition-transform duration-300 ease-in-out hover:scale-105" asChild>
+                <Link to="/contact">Contact Us</Link>
+              </Button>
+            </div>
+          </div>
         </motion.section>
       </div>
     </AnimatedPage>

@@ -20,7 +20,6 @@ const Contact = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // 1. Send data to FormSubmit (Email + Webhook)
       const response = await fetch("https://formsubmit.co/ajax/elsaplgdn@gmail.com", {
         method: "POST",
         headers: { 
@@ -34,19 +33,15 @@ const Contact = () => {
         toast.success("Message sent successfully!", {
           description: "We'll get back to you within 24 hours."
         });
-        (e.target as HTMLFormElement).reset(); // Clear form
+        (e.target as HTMLFormElement).reset(); 
       } else {
         const errorData = await response.json();
         console.error("FormSubmit Error:", errorData);
-        toast.error("Failed to send message.", {
-          description: "Please try again or email us directly."
-        });
+        toast.error("Failed to send message.");
       }
     } catch (error) {
       console.error("Network Error:", error);
-      toast.error("Network error.", {
-        description: "Please check your connection and try again."
-      });
+      toast.error("Network error.");
     } finally {
       setIsSubmitting(false);
     }
@@ -54,7 +49,6 @@ const Contact = () => {
 
   return (
     <AnimatedPage>
-      {/* SEO META TAGS */}
       <Helmet>
         <title>Contact Us | Plugged In (PLGDIN)</title>
         <meta
@@ -63,35 +57,33 @@ const Contact = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen py-20">
+      <div className="min-h-screen py-20 bg-white font-lato">
         <div className="container px-4">
           <section className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            {/* Heading: Playfair Display */}
+            <h1 className="font-playfair text-4xl md:text-5xl font-bold text-black mb-6">
               Contact Us
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            {/* Description: Geometric Sans tracking-wider */}
+            <p className="font-sans tracking-wider text-xl text-black/70 max-w-2xl mx-auto leading-relaxed">
               Have questions about our products, SnuggleIt and E.L.S.A., or our services like website development, app development, IoT solutions, or custom projects? Get in touch with our team.
             </p>
           </section>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            <Card>
+            <Card className="border-black/10 bg-white shadow-sm">
               <CardHeader>
-                <CardTitle>Send us a Message</CardTitle>
-                <CardDescription>
+                <CardTitle className="font-playfair text-2xl text-black">Send us a Message</CardTitle>
+                <CardDescription className="font-sans tracking-wider text-black/60">
                   Fill out the form below and we'll respond within 24 business hours.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  
-                  {/* --- CONFIGURATION FIELDS --- */}
                   <input type="hidden" name="_captcha" value="false" />
                   <input type="hidden" name="_subject" value="New Inquiry from PluggedIn Website!" />
                   <input type="text" name="_honey" style={{ display: "none" }} />
                   <input type="hidden" name="_template" value="table" />
-
-                  {/* UPDATED: YOUR NEW GOOGLE SCRIPT URL */}
                   <input 
                     type="hidden" 
                     name="_webhook" 
@@ -100,25 +92,25 @@ const Contact = () => {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input id="name" name="name" placeholder="Name" required disabled={isSubmitting} />
+                      <Label htmlFor="name" className="font-sans tracking-wider text-black/80">Full Name</Label>
+                      <Input id="name" name="name" placeholder="Name" required disabled={isSubmitting} className="font-sans border-black/10" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" name="email" placeholder="" required disabled={isSubmitting} />
+                      <Label htmlFor="email" className="font-sans tracking-wider text-black/80">Email</Label>
+                      <Input id="email" type="email" name="email" required disabled={isSubmitting} className="font-sans border-black/10" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" name="phone" placeholder="" required disabled={isSubmitting} />
+                    <Label htmlFor="phone" className="font-sans tracking-wider text-black/80">Phone Number</Label>
+                    <Input id="phone" type="tel" name="phone" required disabled={isSubmitting} className="font-sans border-black/10" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="inquiryType">Inquiry Type</Label>
+                    <Label htmlFor="inquiryType" className="font-sans tracking-wider text-black/80">Inquiry Type</Label>
                     <select
                       id="inquiryType"
                       name="inquiryType"
                       required
-                      className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-10 w-full items-center justify-between rounded-md border border-black/10 bg-white px-3 py-2 text-sm font-sans tracking-wider focus:outline-none focus:ring-2 focus:ring-black disabled:cursor-not-allowed disabled:opacity-50"
                       disabled={isSubmitting}
                       defaultValue=""
                     >
@@ -135,7 +127,7 @@ const Contact = () => {
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message" className="font-sans tracking-wider text-black/80">Message</Label>
                     <Textarea 
                       id="message" 
                       name="message" 
@@ -143,11 +135,12 @@ const Contact = () => {
                       placeholder="Tell us about your inquiry..." 
                       required 
                       disabled={isSubmitting}
+                      className="font-sans border-black/10"
                     />
                   </div>
                   <Button 
                     type="submit" 
-                    className="w-full transition-transform duration-300 ease-in-out hover:scale-105"
+                    className="w-full font-sans tracking-wider uppercase text-xs h-12 bg-black text-[#E7BB55] transition-transform duration-300 ease-in-out hover:scale-105"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -173,44 +166,44 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 className="block hover:opacity-80 transition-opacity"
               >
-                <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+                <Card className="border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Instagram className="h-5 w-5 text-primary" />
+                    <CardTitle className="flex items-center gap-2 font-playfair text-xl text-black">
+                      <Instagram className="h-5 w-5 text-[#E7BB55]" />
                       Instagram
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground">
+                    <p className="font-sans tracking-wider text-black/60">
                       Follow us @plgd.in
                     </p>
                   </CardContent>
                 </Card>
               </a>
 
-              <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+              <Card className="border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center gap-2 font-playfair text-xl text-black">
+                    <Clock className="h-5 w-5 text-[#E7BB55]" />
                     Response Time
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
+                  <p className="font-sans tracking-wider text-black/60">
                     We respond to all inquiries within 24 business hours.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
+              <Card className="border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center gap-2 font-playfair text-xl text-black">
+                    <MapPin className="h-5 w-5 text-[#E7BB55]" />
                     Location
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
+                  <p className="font-sans tracking-wider text-black/60">
                     Trivandrum, Kerala, India
                   </p>
                 </CardContent>
