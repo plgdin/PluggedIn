@@ -19,8 +19,8 @@ const Contact = () => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    // Added the requested emails to the CC field
-    data["_cc"] = "alanbijialex@gmail.com, plggdinn@gmail.com, anshajshaji3@gmail.com, adityar150805@gmail.com, adithyansm045@gmail.com";
+    // Added all requested team emails to the CC list
+    data["_cc"] = "alanbijialex@gmail.com, plggdinn@gmail.com, anshajshaji3@gmail.com, adityar150805@gmail.com";
 
     try {
       const response = await fetch("https://formsubmit.co/ajax/elsaplgdn@gmail.com", {
@@ -34,17 +34,17 @@ const Contact = () => {
 
       if (response.ok) {
         toast.success("Message sent successfully!", {
-          description: "We'll get back to you within 24 hours."
+          description: "The team has been notified. We'll get back to you soon."
         });
         (e.target as HTMLFormElement).reset(); 
       } else {
         const errorData = await response.json();
         console.error("FormSubmit Error:", errorData);
-        toast.error("Failed to send message.");
+        toast.error("Failed to send message. Please verify all emails are confirmed.");
       }
     } catch (error) {
       console.error("Network Error:", error);
-      toast.error("Network error.");
+      toast.error("Network error. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -63,11 +63,9 @@ const Contact = () => {
       <div className="min-h-screen py-20 bg-white font-lato">
         <div className="container px-4">
           <section className="text-center mb-16">
-            {/* Heading: Playfair Display */}
             <h1 className="font-playfair text-4xl md:text-5xl font-bold text-black mb-6">
               Contact Us
             </h1>
-            {/* Description: Geometric Sans tracking-wider */}
             <p className="font-sans tracking-wider text-xl text-black/70 max-w-2xl mx-auto leading-relaxed">
               Have questions about our products, SnuggleIt and E.L.S.A., or our services like website development, app development, IoT solutions, or custom projects? Get in touch with our team.
             </p>
