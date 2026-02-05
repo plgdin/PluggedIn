@@ -19,6 +19,9 @@ const Contact = () => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
+    // Added the requested emails to the CC field
+    data["_cc"] = "alanbijialex@gmail.com, plggdinn@gmail.com, anshajshaji3@gmail.com, adityar150805@gmail.com, adithyansm045@gmail.com";
+
     try {
       const response = await fetch("https://formsubmit.co/ajax/elsaplgdn@gmail.com", {
         method: "POST",
