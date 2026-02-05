@@ -19,7 +19,7 @@ const Contact = () => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    // Added all requested team emails to the CC list
+    // Multiple recipients are handled via the _cc field in FormSubmit
     data["_cc"] = "alanbijialex@gmail.com, plggdinn@gmail.com, anshajshaji3@gmail.com, adityar150805@gmail.com";
 
     try {
