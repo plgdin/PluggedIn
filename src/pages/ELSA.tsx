@@ -30,6 +30,7 @@ import elsaDeviceImage from "../assets/Untitled@1-1536x730.png";
 
 const ELSA = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [titleRevealed, setTitleRevealed] = useState(false);
   
   // Track scroll progress
   const { scrollYProgress } = useScroll({
@@ -79,7 +80,7 @@ const ELSA = () => {
 
   const deviceY = useTransform(smoothProgress,
     [0, 0.1, 0.35, 1],
-    ["0vh", "10vh", "0vh", "0vh"]
+    ["14vh", "14vh", "0vh", "0vh"]
   );
 
   // --- TITLE TEXT HOVER REVEAL & SCROLL FADEOUT ---
@@ -89,6 +90,7 @@ const ELSA = () => {
   const headerTextGlobalOpacity = useTransform(smoothProgress, [0.12, 0.15], [1, 0]);
 
   const handleDeviceHover = () => {
+    setTitleRevealed(true);
     animate(hoverOpacity, 1, { duration: 0.8, ease: "easeOut" });
   };
 
@@ -181,8 +183,11 @@ const ELSA = () => {
 
           {/* --- STAGE 1: INTRO TEXT --- */}
           <motion.div 
-            className="absolute z-0 flex flex-col items-center justify-center pointer-events-none w-full px-4"
+            className="absolute top-[14%] z-0 flex flex-col items-center justify-center pointer-events-none w-full px-4"
             style={{ opacity: headerTextGlobalOpacity }}
+            initial={{ y: 40, scale: 0.97 }}
+            animate={titleRevealed ? { y: 0, scale: 1 } : { y: 40, scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 85, damping: 14 }}
           >
              <motion.h1 
                style={{ x: textTopX, y: textTopY, opacity: textOpacity }}
@@ -205,7 +210,7 @@ const ELSA = () => {
               opacity: introButtonOpacity,
               pointerEvents: introButtonPointerEvents 
             }}
-            className="absolute z-30 bottom-[20%] md:bottom-auto md:top-1/2 md:right-[15%] md:-translate-y-1/2 flex flex-col items-center md:items-start gap-4"
+            className="absolute z-30 bottom-[14%] right-[8%] flex flex-col items-center md:items-end gap-3 text-center md:text-right"
           >
             <h1 className="font-display text-[#E7BB55] text-6xl font-black tracking-widest mb-1">
               E.L.S.A
