@@ -7,7 +7,9 @@ import {
   useScroll, 
   useTransform, 
   useSpring,
-  MotionValue
+  MotionValue,
+  useMotionValue,
+  animate
 } from "framer-motion";
 import AnimatedPage from "../components/AnimatedPage";
 import { 
@@ -80,9 +82,15 @@ const ELSA = () => {
     ["0vh", "10vh", "0vh", "0vh"]
   );
 
-  // --- TEXT ANIMATIONS ---
-  const textOpacity = useTransform(smoothProgress, [0, 0.05], [0, 1]);
+  // --- TITLE TEXT HOVER REVEAL & SCROLL FADEOUT ---
+  const hoverOpacity = useMotionValue(0);
+  const scrollTextOpacity = useTransform(smoothProgress, [0, 0.12, 0.15], [1, 1, 0]);
+  const textOpacity = useTransform([scrollTextOpacity, hoverOpacity], ([s, h]) => (s as number) * (h as number));
   const headerTextGlobalOpacity = useTransform(smoothProgress, [0.12, 0.15], [1, 0]);
+
+  const handleDeviceHover = () => {
+    animate(hoverOpacity, 1, { duration: 0.8, ease: "easeOut" });
+  };
 
   const textTopX = useTransform(smoothProgress, [0, 0.08, 0.15], ["0%", "-30%", "0%"]);
   const textTopY = useTransform(smoothProgress, [0, 0.08, 0.15], ["0%", "-120%", "-300%"]);
@@ -107,27 +115,6 @@ const ELSA = () => {
   const buttonsOpacity = useTransform(smoothProgress, [0.94, 0.98], [0, 1]);
   const buttonsYPos = useTransform(smoothProgress, [0.94, 0.98], [20, 0]);
   const buttonsDisplay = useTransform(smoothProgress, (v) => v < 0.9 ? "none" : "flex");
-
-  // --- HOTSPOT AND REVEAL STATE ---
-  const [revealed, setRevealed] = useState<boolean[]>(new Array(7).fill(false));
-
-  const revealFeature = (index: number) => {
-    setRevealed(prev => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  };
-
-  const hotspots = [
-    { top: "32%", left: "24%", index: 0 },
-    { top: "48%", left: "36%", index: 1 },
-    { top: "62%", left: "42%", index: 2 },
-    { top: "28%", left: "54%", index: 3 },
-    { top: "45%", left: "62%", index: 4 },
-    { top: "58%", left: "70%", index: 5 },
-    { top: "38%", left: "48%", index: 6 }
-  ];
 
   // --- FEATURE DATA ---
   const features = [
@@ -240,7 +227,8 @@ const ELSA = () => {
 
           {/* --- THE DEVICE --- */}
           <motion.div
-            className="relative z-10 w-[90vw] md:w-[60vw] max-w-[1000px] aspect-video group" 
+            onMouseEnter={handleDeviceHover}
+            className="relative z-10 w-[90vw] md:w-[60vw] max-w-[1000px] aspect-video group cursor-pointer" 
             style={{
               scale: deviceScale,
               x: deviceX,
@@ -257,31 +245,6 @@ const ELSA = () => {
               alt="ELSA Device" 
               className="w-full h-full object-contain relative z-10"
             />
-
-            {/* Pulsing Interactive Hotspots - Hidden until scroll progress triggers features stage */}
-            <motion.div 
-              style={{ opacity: featuresHeaderOpacity }} 
-              className="absolute inset-0 z-30 pointer-events-auto"
-            >
-              {hotspots.map((hs) => {
-                const isRevealed = revealed[hs.index];
-                return (
-                  <div
-                    key={hs.index}
-                    className="absolute cursor-pointer group/spot -translate-x-1/2 -translate-y-1/2"
-                    style={{ top: hs.top, left: hs.left }}
-                    onMouseEnter={() => revealFeature(hs.index)}
-                  >
-                    {/* Pulsing glow ring */}
-                    <span className={`absolute -inset-2 rounded-full border border-[#E7BB55] ${isRevealed ? "opacity-0" : "opacity-100 animate-ping"}`} style={{ animationDuration: '2.5s' }} />
-                    {/* Target dot badge */}
-                    <div className={`w-5 h-5 rounded-full border border-[#E7BB55]/50 flex items-center justify-center text-[9px] font-mono font-bold transition-all duration-300 ${isRevealed ? "bg-[#E7BB55] text-black border-[#E7BB55]" : "bg-black/90 text-[#E7BB55] hover:bg-[#E7BB55]/20 hover:border-[#E7BB55]"}`}>
-                      {hs.index + 1}
-                    </div>
-                  </div>
-                );
-              })}
-            </motion.div>
 
             {/* Futuristic target corner elements around the device view */}
             <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
@@ -319,12 +282,9 @@ const ELSA = () => {
             style={{ opacity: featuresHeaderOpacity }}
             className="absolute top-[12%] w-full z-20 text-center pointer-events-none"
           >
-            <h2 className="font-display text-white text-3xl md:text-5xl font-black uppercase tracking-widest leading-snug">
+            <h2 className="font-display text-white text-4xl md:text-6xl font-black uppercase tracking-widest">
               Features of <span className="text-[#E7BB55]">E.L.S.A</span>
             </h2>
-            <p className="font-mono text-[9px] md:text-xs text-zinc-500 uppercase tracking-widest mt-2">
-              Hover over the device target nodes (1-7) to reveal telemetrics
-            </p>
           </motion.div>
 
 
@@ -345,7 +305,6 @@ const ELSA = () => {
                  scrollProgress={smoothProgress}
                  finalAngle={finalAngle}
                  stayVisibleUntil={0.95} 
-                 revealed={revealed[index]}
                />
              );
           })}
@@ -410,15 +369,13 @@ const FeatureOrb = ({
   index,
   scrollProgress, 
   finalAngle,
-  stayVisibleUntil,
-  revealed
+  stayVisibleUntil
 }: { 
   feature: any, 
   index: number,
   scrollProgress: MotionValue<number>,
   finalAngle: number,
-  stayVisibleUntil: number,
-  revealed: boolean
+  stayVisibleUntil: number
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -429,12 +386,11 @@ const FeatureOrb = ({
   const entryDelay = 0.07 * index; 
   const myStart = animStart + entryDelay;
   
-  // 1. Opacity (driven by both scroll range fadeout and active reveal state)
-  const scrollOpacity = useTransform(scrollProgress, 
-    [stayVisibleUntil, stayVisibleUntil + 0.05], 
-    [1, 0]
+  // 1. Opacity (driven by scroll range fadeout)
+  const opacity = useTransform(scrollProgress, 
+    [myStart, myStart + 0.05, stayVisibleUntil, stayVisibleUntil + 0.05], 
+    [0, 1, 1, 0]
   );
-  const opacity = useTransform(scrollOpacity, (s) => revealed ? s : 0);
 
   // 2. Angle Interpolation
   const currentAngle = useTransform(scrollProgress,
@@ -465,6 +421,8 @@ const FeatureOrb = ({
     <motion.div 
       style={{ x, y, opacity }}
       className="absolute top-1/2 left-[43%] -translate-x-1/2 -translate-y-1/2 z-30 flex justify-center items-center pointer-events-auto"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Holographic Connecting Line */}
       <div className="absolute top-1/2 left-1/2 w-0 h-0 overflow-visible z-[-1] pointer-events-none">
@@ -476,29 +434,15 @@ const FeatureOrb = ({
             y2={negY}
             stroke="#E7BB55"
             strokeWidth={isHovered ? 2.5 : 1}
-            initial={{ opacity: 0 }}
-            animate={revealed ? { 
-              opacity: isHovered ? 0.95 : 0.45, 
-              strokeDashoffset: [0, -24] 
-            } : { 
-              opacity: 0,
-              strokeDashoffset: 0
-            }}
-            transition={revealed ? {
-              strokeDashoffset: { repeat: Infinity, ease: "linear", duration: 1.2 },
-              opacity: { duration: 0.4 }
-            } : { duration: 0.3 }}
+            strokeOpacity={isHovered ? 0.95 : 0.45}
             strokeDasharray={isHovered ? "none" : "6, 6"}
+            animate={{ strokeDashoffset: [0, -24] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 1.2 }}
           />
         </svg>
       </div>
 
       <motion.div 
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={revealed ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15 }}
         className="
           w-[160px] md:w-[200px] 
           bg-black/90 backdrop-blur-md border border-[#E7BB55]/20 
