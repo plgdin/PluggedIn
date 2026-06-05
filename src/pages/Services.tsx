@@ -512,17 +512,9 @@ const Services: React.FC = () => {
             {/* Header Readout Bar */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-[#E7BB55]/10 pb-6 gap-4">
               <div>
-                <div className="inline-flex items-center gap-2 border border-[#E7BB55]/30 px-3 py-0.5 rounded bg-black/60 backdrop-blur-md mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E7BB55] animate-ping" />
-                  <span className="font-hud text-[9px] text-[#E7BB55] tracking-widest">SYS_SERVICE_CATALOG // DIRECT_BOOT</span>
-                </div>
-                <h1 className="font-tech text-3xl md:text-5xl font-black tracking-widest text-white">
+                <h1 className="font-display text-3xl md:text-5xl font-black tracking-widest text-white">
                   CORE <span className="text-[#E7BB55]">CAPABILITIES</span>
                 </h1>
-              </div>
-              <div className="font-hud text-[10px] text-zinc-500 flex flex-col items-end">
-                <span>SECTOR: DIGITAL_COMMERCE</span>
-                <span>STATUS: OPERATIONAL_OK</span>
               </div>
             </div>
 
@@ -568,21 +560,7 @@ const Services: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Subsystem Telemetry Readout */}
-                <div className="mt-8 border-t border-[#E7BB55]/10 pt-4 font-hud text-[9px] text-zinc-500 space-y-1.5">
-                  <div className="flex justify-between">
-                    <span>SECTOR_LOAD:</span>
-                    <span className="text-white">STABLE // 12.4ms</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>INTELLIGENCE_MESH:</span>
-                    <span className="text-[#E7BB55]">CONNECTED</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>DIAG_WIDGET:</span>
-                    <span className="text-zinc-400 uppercase">{config.type}_DECOR_ACTIVE</span>
-                  </div>
-                </div>
+
               </div>
 
               {/* Right Column: Main Console Workspace with Custom transitions per active tab */}
@@ -645,11 +623,7 @@ const Services: React.FC = () => {
                             </div>
                           </div>
 
-                          <div className="font-display text-xs flex items-center gap-3 text-zinc-400 font-semibold uppercase border-t border-[#E7BB55]/10 pt-4">
-                            <span className={config.tagColor}>{config.rarity}</span>
-                            <span>|</span>
-                            <span>{config.metric}</span>
-                          </div>
+
                         </div>
 
                         {/* Interactive Diagnostic SVG widget (5 cols) */}
@@ -674,10 +648,7 @@ const Services: React.FC = () => {
 
                     {/* Content Bottom: Action Button */}
                     <div className="pt-6 mt-6 border-t border-[#E7BB55]/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-                      <div className="font-hud text-[9px] text-zinc-500 flex gap-4 uppercase">
-                        <span>PORT: SECURE_8080</span>
-                        <span>ENC: TLS_AES_256</span>
-                      </div>
+                      <div className="flex-1" />
                       <Link 
                         to="/contact" 
                         state={{ transition: "flipRotate" }}
