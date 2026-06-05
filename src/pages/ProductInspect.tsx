@@ -9,6 +9,7 @@ import AnimatedPage from '../components/AnimatedPage';
 import { Canvas } from '@react-three/fiber';
 import { useGLTF, Stage, OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import InteractiveCanvasGrid from '../components/InteractiveCanvasGrid';
 
 function Model() {
   const { scene } = useGLTF('/elsa-model.glb');
@@ -33,8 +34,12 @@ function Model() {
 export default function ProductInspect() {
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    const originalBodyBg = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = "#020203";
+
     return () => {
       document.body.style.overflow = "auto";
+      document.body.style.backgroundColor = originalBodyBg;
     };
   }, []);
 
@@ -45,14 +50,23 @@ export default function ProductInspect() {
         <meta name="description" content="Interactive 3D view of the ELSA Emergency Device." />
       </Helmet>
 
-      <div className="relative w-full h-screen bg-[#f0ebd8] overflow-hidden">
+      {/* Styled in rich tech black to match the theme */}
+      <div className="relative w-full h-screen bg-[#020203] overflow-hidden text-white">
         
-        <div className="absolute top-24 left-4 z-50">
+        {/* Full-Screen Interactive Connected Particle Matrix Grid */}
+        <div className="opacity-30 pointer-events-none">
+          <InteractiveCanvasGrid />
+        </div>
+
+        {/* Header decoration line */}
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E7BB55]/25 to-transparent z-40" />
+
+        <div className="absolute top-24 left-6 z-50">
           <Button 
             variant="outline" 
             size="sm" 
             asChild 
-            className="bg-white/80 backdrop-blur-sm border-[#3e2b26]/20 text-[#3e2b26] hover:bg-[#3e2b26]/10 hover:text-[#3e2b26]"
+            className="bg-black/60 border-[#E7BB55]/30 text-[#E7BB55] hover:bg-[#E7BB55] hover:text-black transition-all duration-300 rounded"
           >
             <Link to="/elsa">
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Product
@@ -60,27 +74,31 @@ export default function ProductInspect() {
           </Button>
         </div>
 
+        {/* 3D Canvas Scene */}
         <div className="w-full h-full cursor-move">
           <Canvas dpr={[1, 2]} camera={{ fov: 45 }}>
-             <Stage environment="city" intensity={0.6} adjustCamera={1.5}>
+             <Stage environment="city" intensity={0.8} adjustCamera={1.5}>
                 <Model />
              </Stage>
 
-             {/* --- ROTATION FIX IS HERE --- */}
+             {/* Orbit Controls with full vertical/horizontal rotation unlocked */}
              <OrbitControls 
                 enablePan={false}
                 minDistance={2}
                 maxDistance={10}
                 autoRotate={false}
-                // These two lines UNLOCK the full 360 vertical rotation:
                 minPolarAngle={0} 
                 maxPolarAngle={Math.PI}
              />
           </Canvas>
         </div>
         
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none text-center opacity-50 z-40">
-           <p className="text-xs md:text-sm font-sans text-[#3e2b26] uppercase tracking-wider">
+        {/* Futuristic instruction prompt */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none text-center z-40 space-y-1">
+           <p className="text-[10px] md:text-xs font-mono text-[#E7BB55] uppercase tracking-widest animate-pulse">
+               DIAGNOSTICS_VIEW // INTERACTIVE_3D_MODEL
+           </p>
+           <p className="text-[9px] md:text-[10px] font-sans text-zinc-500 uppercase tracking-widest">
                Drag to Rotate • Scroll to Zoom
            </p>
         </div>

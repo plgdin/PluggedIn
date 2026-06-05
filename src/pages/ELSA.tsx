@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom"; // Added Link
-import { Button } from "@/components/ui/button"; // Added Button
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { 
   motion, 
   useScroll, 
@@ -18,9 +18,10 @@ import {
   Users,
   Mic,
   Activity,
-  ArrowRight, // Added ArrowRight
-  Cuboid // Added Cuboid for 3D icon
+  ArrowRight,
+  Cuboid
 } from "lucide-react";
+import InteractiveCanvasGrid from "../components/InteractiveCanvasGrid";
 
 // --- ASSET IMPORT ---
 import elsaDeviceImage from "../assets/Untitled@1-1536x730.png";
@@ -41,15 +42,25 @@ const ELSA = () => {
     restDelta: 0.001
   });
 
-  // --- ANIMATION TIMELINE ---
-  // 0.00 - 0.15: INTRO
-  // 0.15 - 0.30: WHAT IS ELSA
-  // 0.30 - 0.35: PREP (Center Product)
-  // 0.35 - 0.90: CIRCLE ASSEMBLY
-  // 0.90 - 1.00: OUTRO & CTA BUTTONS
+  // Track global mouse coordinates for background spotlight
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--global-mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--global-mouse-y', `${e.clientY}px`);
+    };
+    window.addEventListener('mousemove', handleGlobalMouseMove);
 
+    const originalBodyBg = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = "#020203";
+
+    return () => {
+      document.body.style.backgroundColor = originalBodyBg;
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+    };
+  }, []);
+
+  // --- ANIMATION TIMELINE ---
   // 1. DEVICE SCALE
-  // Stays small (0.35) from 0.35 to 0.90 (while features are visible)
   const deviceScale = useTransform(smoothProgress, 
     [0, 0.1, 0.3, 0.35, 0.9, 1], 
     [1, 0.6, 0.6, 0.35, 0.35, 1.4] 
@@ -68,7 +79,6 @@ const ELSA = () => {
   );
 
   // 4. DEVICE Y POSITION (FIXED)
-  // Moves to 0vh (center) by 0.35 and STAYS THERE until the end.
   const deviceY = useTransform(smoothProgress,
     [0, 0.1, 0.35, 1],
     ["0vh", "10vh", "0vh", "0vh"]
@@ -93,14 +103,11 @@ const ELSA = () => {
 
   const scrollIndicatorOpacity = useTransform(smoothProgress, [0, 0.02], [1, 0]);
 
-  // --- INTRO INSPECT BUTTON (New) ---
-  // Visible only at the very start (0 to 0.08), then fades out
+  // --- INTRO INSPECT BUTTON ---
   const introButtonOpacity = useTransform(smoothProgress, [0, 0.08], [1, 0]);
-  // Hide pointer events when faded out so it doesn't block interactions
   const introButtonPointerEvents = useTransform(smoothProgress, (v) => v > 0.08 ? 'none' : 'auto');
 
   // --- END CTA BUTTONS ---
-  // Appear at the very end of the scroll (0.94 to 1.0)
   const buttonsOpacity = useTransform(smoothProgress, [0.94, 0.98], [0, 1]);
   const buttonsYPos = useTransform(smoothProgress, [0.94, 0.98], [20, 0]);
   const buttonsDisplay = useTransform(smoothProgress, (v) => v < 0.9 ? "none" : "flex");
@@ -110,37 +117,37 @@ const ELSA = () => {
     {
       title: "Context-Aware",
       description: "Clicks vs long-presses.",
-      icon: <Brain className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Brain className="h-5 w-5" />,
     },
     {
       title: "Data-Enriched",
       description: "Sends key medical details.",
-      icon: <Database className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Database className="h-5 w-5" />,
     },
     {
       title: "Tiered Escalation",
       description: "Caretakers then Emergency.",
-      icon: <Layers className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Layers className="h-5 w-5" />,
     },
     {
       title: "Centralized Hub",
       description: "Live dashboard status.",
-      icon: <Monitor className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Monitor className="h-5 w-5" />,
     },
     {
       title: "Easy Setup",
       description: "Instant deployability.",
-      icon: <Users className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Users className="h-5 w-5" />,
     },
     {
       title: "Voice Triggers",
       description: "Hands-free activation.",
-      icon: <Mic className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Mic className="h-5 w-5" />,
     },
     {
       title: "Fall Detection",
       description: "Auto-detects falls.",
-      icon: <Activity className="h-5 w-5 text-[#C08B6B]" />,
+      icon: <Activity className="h-5 w-5" />,
     },
   ];
 
@@ -154,8 +161,16 @@ const ELSA = () => {
       {/* SCROLL CONTAINER */}
       <div 
         ref={containerRef} 
-        className="relative h-[2000vh] bg-[#f0ebd8]" 
+        style={{
+          background: 'radial-gradient(circle 800px at var(--global-mouse-x, 50%) var(--global-mouse-y, 50%), rgba(231, 187, 85, 0.04) 0%, rgba(2, 2, 3, 1) 75%, #020203 100%)'
+        }}
+        className="relative h-[2000vh] text-white overflow-x-hidden" 
       >
+        {/* Full-Screen Interactive Connected Particle Matrix Grid */}
+        <InteractiveCanvasGrid />
+
+        {/* Decorative Grid Mesh Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e7bb5503_1px,transparent_1px),linear-gradient(to_bottom,#e7bb5505_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0" />
         
         {/* STICKY STAGE */}
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
@@ -165,46 +180,42 @@ const ELSA = () => {
             className="absolute z-0 flex flex-col items-center justify-center pointer-events-none w-full px-4"
             style={{ opacity: headerTextGlobalOpacity }}
           >
-             {/* REVERTED: Changed back to original "Emergency Link" */}
              <motion.h1 
                style={{ x: textTopX, y: textTopY, opacity: textOpacity }}
-               className="font-serif text-[#3e2b26] text-5xl md:text-7xl lg:text-8xl tracking-wide text-center"
+               className="font-display text-[#E7BB55] text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-widest text-center"
              >
                Emergency Link
              </motion.h1>
-
+ 
              <motion.h1 
                 style={{ x: textBottomX, y: textBottomY, opacity: textOpacity }}
-                className="font-serif text-[#3e2b26] text-4xl md:text-6xl lg:text-7xl italic tracking-wide mt-2 text-center"
+                className="font-display text-white text-4xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-wide mt-2 text-center"
              >
                For Smart Alert
              </motion.h1>
           </motion.div>
 
-          {/* --- INTRO CTA BUTTON (NEW ADDITION) --- */}
-          {/* Floats near the product at start, fades out on scroll */}
+          {/* --- INTRO CTA BUTTON --- */}
           <motion.div
             style={{ 
               opacity: introButtonOpacity,
               pointerEvents: introButtonPointerEvents 
             }}
-            // ADDED: flex, flex-col, and gap-4 to stack the Header and Button
             className="absolute z-30 bottom-[20%] md:bottom-auto md:top-1/2 md:right-[15%] md:-translate-y-1/2 flex flex-col items-center md:items-start gap-4"
           >
-            {/* ADDED: E.L.S.A Header here as requested */}
-            <h1 className="font-serif text-[#3e2b26] text-6xl font-bold tracking-tight">
+            <h1 className="font-display text-[#E7BB55] text-6xl font-black tracking-widest mb-1">
               E.L.S.A
             </h1>
 
             <Button 
               variant="secondary" 
               size="default" 
-              className="shadow-xl border border-[#3e2b26]/20 bg-white/80 backdrop-blur-md hover:bg-white hover:scale-105 transition-all duration-300 text-[#3e2b26] rounded-full gap-2 pl-4 pr-5"
+              className="shadow-[0_0_20px_rgba(231,187,85,0.15)] border border-[#E7BB55]/30 bg-black text-[#E7BB55] hover:bg-[#E7BB55] hover:text-black hover:scale-105 transition-all duration-300 rounded-full gap-2 pl-4 pr-5 font-display font-bold uppercase tracking-wider text-xs"
               asChild
             >
               <Link to="/product-inspect">
-                <Cuboid className="h-5 w-5 stroke-1" />
-                <span className="font-serif tracking-wide">Touch to Inspect</span>
+                <Cuboid className="h-4 w-4 stroke-2" />
+                <span>Touch to Inspect</span>
               </Link>
             </Button>
           </motion.div>
@@ -212,7 +223,7 @@ const ELSA = () => {
 
           {/* --- THE DEVICE --- */}
           <motion.div
-            className="relative z-10 w-[90vw] md:w-[60vw] max-w-[1000px] aspect-video" 
+            className="relative z-10 w-[90vw] md:w-[60vw] max-w-[1000px] aspect-video group" 
             style={{
               scale: deviceScale,
               x: deviceX,
@@ -221,42 +232,53 @@ const ELSA = () => {
             }}
             transition={{ type: "spring", stiffness: 60, damping: 20 }}
           >
+            {/* Ambient scanning aura */}
+            <div className="absolute inset-0 bg-[#E7BB55]/5 filter blur-[60px] rounded-full pointer-events-none opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
+            
             <img 
               src={elsaDeviceImage} 
               alt="ELSA Device" 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain relative z-10"
             />
+
+            {/* Futuristic target corner elements around the device view */}
+            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+
+            {/* Glowing scanning laser line */}
+            <div className="absolute inset-x-4 top-0 bottom-0 bg-[linear-gradient(to_bottom,rgba(231,187,85,0)_40%,rgba(231,187,85,0.25)_50%,rgba(231,187,85,0)_60%)] bg-[size:100%_200%] pointer-events-none z-20 animate-laser-sweep" style={{ animationDuration: '4s' }} />
           </motion.div>
 
 
           {/* --- STAGE 2: CONTENT --- */}
           <motion.div 
             style={{ opacity: infoOpacity, x: infoX }}
-            // WIDER CONTAINER (max-w-2xl) to stretch towards the product
             className="absolute left-[5%] md:left-[10%] top-[20%] md:top-1/4 max-w-2xl z-20 pointer-events-none"
           >
-            <h2 className="font-serif text-[#3e2b26] text-4xl md:text-7xl mb-6 md:mb-8 leading-tight">
-              What is <br/> E.L.S.A?
+            <h2 className="font-display text-white text-4xl md:text-7xl font-extrabold mb-6 md:mb-8 leading-tight">
+              What is <br/> <span className="text-[#E7BB55]">E.L.S.A?</span>
             </h2>
-            <p className="text-[#3e2b26] text-base md:text-xl leading-relaxed font-serif bg-white/30 backdrop-blur-sm p-4 rounded-xl md:bg-transparent md:backdrop-blur-none md:p-0">
+            <p className="text-zinc-300 text-base md:text-xl leading-relaxed font-modern bg-black/60 border border-zinc-800 backdrop-blur-md p-5 rounded-xl md:bg-transparent md:border-none md:backdrop-blur-none md:p-0">
               One of the core innovations we're developing is ELSA - Emergency Link for Smart Alert, a context-aware emergency response system.
             </p>
             {/* Box below description */}
-            <div className="bg-[#3e2b26]/5 border border-[#3e2b26]/10 rounded-lg p-4 md:p-6 backdrop-blur-sm mt-6">
-              <p className="text--[#3e2b26] text-sm md:text-base leading-relaxed font-sans">
+            <div className="bg-black/75 border border-[#E7BB55]/15 rounded-lg p-5 md:p-6 backdrop-blur-md mt-6">
+              <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-modern font-medium">
                 With a single or double press of a discreet button, users can trigger alerts to medical services or law enforcement, depending on the situation. ELSA's intelligent design ensures minimal false alarms, fast communication, and seamless integration with smart environments—making it a life-saving layer of security in modern homes.
               </p>
             </div>
           </motion.div>
 
 
-          {/* --- STAGE 3: HEADER (FIXED HIGH) --- */}
+          {/* --- STAGE 3: HEADER --- */}
           <motion.div 
             style={{ opacity: featuresHeaderOpacity }}
             className="absolute top-[12%] w-full z-20 text-center pointer-events-none"
           >
-            <h2 className="font-serif text-[#3e2b26] text-4xl md:text-6xl font-bold">
-              Features of E.L.S.A
+            <h2 className="font-display text-white text-4xl md:text-6xl font-black uppercase tracking-widest">
+              Features of <span className="text-[#E7BB55]">E.L.S.A</span>
             </h2>
           </motion.div>
 
@@ -289,15 +311,13 @@ const ELSA = () => {
               y: buttonsYPos,
               display: buttonsDisplay
             }}
-            // Absolute positioning at bottom to clear the enlarged device
             className="absolute bottom-[10%] md:bottom-[15%] z-50 flex-col sm:flex-row gap-4 justify-center w-full px-4"
           >
               <Button 
                 size="lg" 
-                className="text-lg px-8 transition-transform duration-300 ease-in-out hover:scale-105" 
+                className="text-sm font-display font-bold uppercase tracking-wider bg-[#E7BB55] text-black hover:bg-black hover:text-[#E7BB55] hover:border hover:border-[#E7BB55]/40 px-8 transition-transform duration-300 ease-in-out hover:scale-105 rounded shadow-[0_0_20px_rgba(231,187,85,0.2)]" 
                 asChild
               >
-                {/* Linked to the correct route */}
                 <Link to="/product-inspect"> 
                   Inspect the Product <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -306,7 +326,7 @@ const ELSA = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="text-lg px-8 bg-transparent border-[#3e2b26] text-[#3e2b26] hover:bg-[#3e2b26]/10 transition-transform duration-300 ease-in-out hover:scale-105" 
+                className="text-sm font-display font-bold uppercase tracking-wider bg-transparent border-[#E7BB55] text-[#E7BB55] hover:bg-[#E7BB55]/10 px-8 transition-transform duration-300 ease-in-out hover:scale-105 rounded" 
                 asChild
               >
                 <Link to="/contact">Contact Us</Link>
@@ -319,14 +339,14 @@ const ELSA = () => {
             style={{ opacity: scrollIndicatorOpacity }}
             className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-50 pointer-events-none"
           >
-            <span className="font-serif text-[#3e2b26] text-sm tracking-[0.2em] uppercase opacity-80 animate-pulse">
+            <span className="font-display text-[#E7BB55] text-xs font-bold tracking-[0.2em] uppercase opacity-80 animate-pulse">
               Scroll to Discover
             </span>
-            <div className="w-[30px] h-[50px] border-2 border-[#3e2b26] rounded-full flex justify-center p-2 opacity-80">
+            <div className="w-[30px] h-[50px] border-2 border-[#E7BB55]/40 rounded-full flex justify-center p-2 opacity-85">
               <motion.div 
                 animate={{ y: [0, 12, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-1.5 bg-[#3e2b26] rounded-full"
+                className="w-1.5 h-1.5 bg-[#E7BB55] rounded-full"
               />
             </div>
           </motion.div>
@@ -338,7 +358,7 @@ const ELSA = () => {
   );
 };
 
-// --- SUB-COMPONENT FOR ORBITING FEATURES ---
+// --- SUB-COMPONENT FOR ORBITING FEATURES WITH CONNECTION LINES ---
 const FeatureOrb = ({ 
   feature, 
   index,
@@ -352,6 +372,7 @@ const FeatureOrb = ({
   finalAngle: number,
   stayVisibleUntil: number
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
   
   const animStart = 0.35;
   const animEnd = 0.90;
@@ -367,7 +388,6 @@ const FeatureOrb = ({
   );
 
   // 2. Angle Interpolation
-  // Start: 90 (Bottom) -> End: finalAngle
   const currentAngle = useTransform(scrollProgress,
     [myStart, animEnd], 
     [90, finalAngle] 
@@ -375,7 +395,7 @@ const FeatureOrb = ({
 
   // 3. Radius Configuration
   const radiusX = 38; // vmin
-  const radiusY = 27; // vmin (Squashed vertically as requested)
+  const radiusY = 27; // vmin
 
   // Math: Convert Polar to Cartesian
   const x = useTransform(currentAngle, (a) => {
@@ -388,33 +408,56 @@ const FeatureOrb = ({
     return `${Math.sin(rad) * radiusY}vmin`; 
   });
 
+  // Calculate negative vectors back to the absolute center of E.L.S.A
+  const negX = useTransform(x, (v) => `-${v}`);
+  const negY = useTransform(y, (v) => `-${v}`);
+
   return (
     <motion.div 
       style={{ x, y, opacity }}
-      // Fixed center positioning (left-[43%] maintained from request)
       className="absolute top-1/2 left-[43%] -translate-x-1/2 -translate-y-1/2 z-30 flex justify-center items-center pointer-events-auto"
     >
+      {/* Holographic Connecting Line */}
+      <div className="absolute top-1/2 left-1/2 w-0 h-0 overflow-visible z-[-1] pointer-events-none">
+        <svg className="overflow-visible w-0 h-0">
+          <motion.line
+            x1="0"
+            y1="0"
+            x2={negX}
+            y2={negY}
+            stroke="#E7BB55"
+            strokeWidth={isHovered ? 2.5 : 1}
+            strokeOpacity={isHovered ? 0.95 : 0.45}
+            strokeDasharray={isHovered ? "none" : "6, 6"}
+            animate={{ strokeDashoffset: [0, -24] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 1.2 }}
+          />
+        </svg>
+      </div>
+
       <motion.div 
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className="
           w-[160px] md:w-[200px] 
-          bg-white/95 backdrop-blur-sm border border-[#3e2b26]/10 
-          rounded-xl p-3 shadow-md cursor-default
-          flex flex-col items-center text-center
+          bg-black/90 backdrop-blur-md border border-[#E7BB55]/20 
+          rounded-xl p-3.5 shadow-[0_0_15px_rgba(231,187,85,0.05)] cursor-default
+          flex flex-col items-center text-center transition-all duration-300
         "
         whileHover={{ 
           scale: 1.1, 
           zIndex: 50,
-          boxShadow: "0 10px 30px rgba(62, 43, 38, 0.25)",
-          borderColor: "rgba(192, 139, 107, 0.6)"
+          boxShadow: "0 0 25px rgba(231, 187, 85, 0.25)",
+          borderColor: "rgba(231, 187, 85, 0.6)"
         }}
       >
-        <div className="p-1.5 bg-[#f0ebd8] rounded-full mb-1">
+        <div className="p-2 bg-[#E7BB55]/10 border border-[#E7BB55]/20 rounded-full mb-1 text-[#E7BB55] transition-colors duration-300">
           {feature.icon}
         </div>
-        <h3 className="font-serif text-[#3e2b26] text-sm font-bold leading-tight mb-1">
+        <h3 className="font-display text-[#E7BB55] text-sm font-bold leading-tight mb-1">
           {feature.title}
         </h3>
-        <p className="text-[#3e2b26]/80 text-[10px] md:text-xs leading-tight font-sans line-clamp-2">
+        <p className="text-zinc-400 text-[10px] md:text-xs leading-tight font-sans line-clamp-2">
           {feature.description}
         </p>
       </motion.div>
