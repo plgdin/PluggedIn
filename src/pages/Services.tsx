@@ -604,15 +604,15 @@ const Services: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex justify-between items-start border-b border-[#E7BB55]/10 pb-4">
                         <div>
-                          <div className="font-hud text-[10px] text-[#E7BB55]/60 uppercase tracking-widest mb-1 flex items-center gap-1.5">
+                          <div className="font-display text-[10px] text-[#E7BB55]/80 uppercase tracking-widest mb-1 flex items-center gap-1.5">
                             {activeService.icon}
-                            <span>{activeService.subtitle}</span>
+                            <span className="font-bold">{activeService.subtitle}</span>
                           </div>
-                          <h2 className="font-tech text-2xl md:text-4xl font-black uppercase tracking-wider text-white">
+                          <h2 className="font-display text-2xl md:text-4xl font-extrabold uppercase tracking-wider text-white">
                             {activeService.title}
                           </h2>
                         </div>
-                        <span className="font-hud text-xs text-[#E7BB55]/40 border border-[#E7BB55]/20 px-2.5 py-1 rounded bg-[#E7BB55]/5">
+                        <span className="font-display text-xs font-bold text-[#E7BB55]/50 border border-[#E7BB55]/20 px-2.5 py-1 rounded bg-[#E7BB55]/5">
                           SEC_{activeService.number}
                         </span>
                       </div>
@@ -621,31 +621,31 @@ const Services: React.FC = () => {
                       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch pt-2">
                         {/* Text detail / Metrics (7 cols) */}
                         <div className="md:col-span-7 flex flex-col justify-between space-y-4">
-                          <p className="font-modern text-sm text-zinc-300 leading-relaxed text-justify">
-                            "{activeService.lore}"
+                          <p className="font-display text-sm md:text-base font-semibold text-zinc-100 leading-relaxed text-justify">
+                            {activeService.lore}
                           </p>
 
                           {/* Detail readouts */}
                           <div className="grid grid-cols-2 gap-4">
                             <div className="bg-black/50 p-4 border border-[#E7BB55]/10 rounded-lg">
-                              <div className="text-[9px] text-[#E7BB55]/60 font-tech mb-1 uppercase tracking-widest">
+                              <div className="text-[9px] text-[#E7BB55]/80 font-display font-bold mb-1.5 uppercase tracking-widest">
                                 PRIMARY_IMPACT
                               </div>
-                              <div className="text-xs font-hud font-bold text-white">
+                              <div className="text-sm font-display font-extrabold text-white">
                                 {activeService.passive}
                               </div>
                             </div>
                             <div className="bg-black/50 p-4 border border-[#E7BB55]/10 rounded-lg">
-                              <div className="text-[9px] text-[#E7BB55]/60 font-tech mb-1 uppercase tracking-widest">
+                              <div className="text-[9px] text-[#E7BB55]/80 font-display font-bold mb-1.5 uppercase tracking-widest">
                                 SYSTEM_TELEMETRY
                               </div>
-                              <div className="text-xs font-hud font-bold text-white">
+                              <div className="text-sm font-display font-extrabold text-white">
                                 {activeService.stat}
                               </div>
                             </div>
                           </div>
 
-                          <div className="font-hud text-[10px] flex items-center gap-3 text-zinc-500 uppercase border-t border-[#E7BB55]/10 pt-4">
+                          <div className="font-display text-xs flex items-center gap-3 text-zinc-400 font-semibold uppercase border-t border-[#E7BB55]/10 pt-4">
                             <span className={config.tagColor}>{config.rarity}</span>
                             <span>|</span>
                             <span>{config.metric}</span>
