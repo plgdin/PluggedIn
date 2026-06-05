@@ -1,5 +1,5 @@
 /* 1. Import fonts at the very top */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,32 +7,34 @@
 
 @layer base {
   :root {
-    /* Background: Pure White */
-    --background: 0 0% 100%; 
-    
-    /* Foreground/Text: Black (#000000) for white backgrounds */
-    --foreground: 0 0% 0%; 
+    /* Dark Theme Background: Rich Tech Black (#050505) */
+    --background: 240 10% 2%; 
+    --foreground: 0 0% 98%; 
     
     /* Card & UI elements */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --card: 240 10% 4%; /* Dark Charcoal (#0a0a0c) */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
     
-    /* Primary (Buttons): Black background with Gold text */
-    --primary: 0 0% 0%; 
-    --primary-foreground: 42 77% 62%; /* Gold text on Black buttons */
+    /* Primary: Bright Gold (#E7BB55) */
+    --primary: 42 77% 62%; 
+    --primary-foreground: 0 0% 0%; /* Black text on Gold buttons */
     
-    /* Secondary/Muted: Used for Gold highlights */
-    --secondary: 42 77% 62%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 98%;
-    --muted-foreground: 42 77% 62%; /* Gold for sub-text */
+    /* Secondary/Muted: Sleek Dark Grey and Gold details */
+    --secondary: 240 5% 10%;
+    --secondary-foreground: 42 77% 62%;
+    --muted: 240 5% 8%;
+    --muted-foreground: 42 30% 65%; /* Soft gold for sub-text */
     
-    /* Borders: Black for structure */
-    --border: 0 0% 0%; 
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
+    /* Accent details */
+    --accent: 42 77% 62%;
+    --accent-foreground: 240 10% 2%;
+    
+    /* Borders: Semi-translucent gold for futuristic tech-lines */
+    --border: 42 40% 18%; 
+    --input: 42 40% 18%;
+    --ring: 42 77% 62%;
     --radius: 0.5rem;
   }
 }
@@ -43,18 +45,42 @@
   }
 
   body {
-    /* 2. Set Lato as the default font for the entire site */
-    font-family: 'Lato', sans-serif;
-    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased selection:bg-[#E7BB55] selection:text-black;
   }
 
-  /* 3. Utility class for Serif headings */
+  /* Font Utilities */
   .font-playfair {
     font-family: 'Playfair Display', serif;
   }
 
-  /* 4. Utility class for standard body font */
   .font-lato {
     font-family: 'Lato', sans-serif;
   }
+
+  .font-tech {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-modern {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Custom glow & tech animation keyframes */
+@keyframes tech-glow {
+  0%, 100% {
+    text-shadow: 0 0 4px rgba(231, 187, 85, 0.2), 0 0 10px rgba(231, 187, 85, 0.1);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(231, 187, 85, 0.6), 0 0 20px rgba(231, 187, 85, 0.3);
+  }
+}
+
+.animate-tech-glow {
+  animation: tech-glow 4s infinite ease-in-out;
 }

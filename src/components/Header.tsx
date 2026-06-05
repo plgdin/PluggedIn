@@ -9,14 +9,15 @@ const Header = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Our Services", href: "/services" },
-    { name: "E.L.S.A", href: "/elsa" },
-    { name: "SnuggleIt", href: "/snuggleit" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", href: "/", state: { transition: "default" } },
+    { name: "Our Services", href: "/services", state: { transition: "glitchSplit" } },
+    { name: "E.L.S.A", href: "/elsa", state: { transition: "cyberSlide" } },
+    { name: "SnuggleIt", href: "/snuggleit", state: { transition: "circleExpand" } },
+    { name: "About", href: "/about", state: { transition: "circleExpand" } },
+    { name: "Contact", href: "/contact", state: { transition: "flipRotate" } },
   ];
 
   const logoText = "Plugged In";
@@ -68,20 +69,49 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:absolute md:left-1/2 md:-translate-x-1/2 md:flex items-center space-x-6">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={`text-sm tracking-widest font-sans transition-all duration-300 ease-in-out hover:scale-110 ${
-                location.pathname === item.href
-                  ? "text-[#E7BB55] font-bold drop-shadow-md"
-                  : "text-[#E7BB55]/70 hover:text-[#E7BB55] drop-shadow-sm"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
+        <nav className="hidden md:absolute md:left-1/2 md:-translate-x-1/2 md:flex items-center space-x-1 relative">
+          {navigation.map((item, idx) => {
+            const isHovered = hoveredIdx === idx;
+            const isActive = location.pathname === item.href;
+            return (
+              <div
+                key={item.name}
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                className="relative py-1.5 px-3"
+              >
+                {/* Active Link Highlight (Persistent Slide) */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute inset-0 bg-[#E7BB55]/10 rounded border border-[#E7BB55]/30 -z-10 shadow-[0_0_15px_rgba(231,187,85,0.15)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                
+                {/* Hover Link Highlight (Shared Layout Slide Transition) */}
+                {isHovered && !isActive && (
+                  <motion.div
+                    layoutId="hoverNavIndicator"
+                    className="absolute inset-0 bg-white/5 rounded border border-white/10 -z-10"
+                    transition={{ type: "spring", stiffness: 400, damping: 28 }}
+                  />
+                )}
+
+                <Link
+                  to={item.href}
+                  state={item.state}
+                  className={`text-xs uppercase tracking-widest font-tech block transition-colors duration-200 ${
+                    isActive
+                      ? "text-[#E7BB55] font-bold"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </div>
+            );
+          })}
         </nav>
 
         {/* Hamburger Menu Button */}
@@ -110,6 +140,7 @@ const Header = () => {
               <li key={item.name}>
                 <Link
                   to={item.href}
+                  state={item.state}
                   className={`text-lg tracking-widest font-sans transition-colors ${
                     location.pathname === item.href
                       ? "text-[#E7BB55] font-bold" 

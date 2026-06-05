@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Prevent indexing of 404 or backend testing routes if they exist
+Disallow: /api/
+Disallow: /*?*
+
+# Link to your Sitemap
+Sitemap: https://plgdinn.com/sitemap.xml
