@@ -536,9 +536,9 @@ const Services: React.FC = () => {
                 <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[#E7BB55]" />
 
                 <div className="space-y-6">
-                  <div className="font-hud text-[10px] text-[#E7BB55] tracking-widest border-b border-[#E7BB55]/10 pb-2 flex justify-between items-center">
-                    <span>SELECT PROTOCOL</span>
-                    <span>[6 ACTIVE]</span>
+                  <div className="font-display text-xs font-semibold tracking-widest text-[#E7BB55] border-b border-[#E7BB55]/10 pb-2 flex justify-between items-center">
+                    <span>SELECT SERVICE</span>
+                    <span className="text-[9px] opacity-60">6 OPTIONS</span>
                   </div>
 
                   {/* Vertically stacked service navigation buttons */}
@@ -549,19 +549,19 @@ const Services: React.FC = () => {
                         <button
                           key={i}
                           onClick={() => setActiveIdx(i)}
-                          className={`w-full flex items-center justify-between p-3.5 rounded-lg border font-tech text-xs tracking-wider uppercase transition-all duration-300 ${
+                          className={`w-full flex items-center justify-between p-3.5 rounded-lg border font-display text-sm font-medium transition-all duration-300 ${
                             isActive
                               ? "bg-[#E7BB55]/10 border-[#E7BB55] text-white shadow-[0_0_15px_rgba(231,187,85,0.1)]"
                               : "bg-black/40 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200"
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <span className={`font-hud text-[10px] ${isActive ? "text-[#E7BB55]" : "text-zinc-600"}`}>
-                              ({svc.number})
+                            <span className={`font-mono text-xs ${isActive ? "text-[#E7BB55]" : "text-zinc-500"}`}>
+                              {svc.number}.
                             </span>
                             <span>{svc.title}</span>
                           </div>
-                          <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? "text-[#E7BB55] translate-x-0.5" : "text-zinc-700"}`} />
+                          <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${isActive ? "text-[#E7BB55] translate-x-0.5" : "text-zinc-700"}`} />
                         </button>
                       );
                     })}
