@@ -11,7 +11,8 @@ type AnimatedPageProps = {
 // 2. 'glitchSplit' - Vertical shutter door clip-path reveal
 // 3. 'circleExpand' - Expanding circular lens mask
 // 4. 'flipRotate' - 3D card perspective card flip
-// 5. Default - Clean springy slide + fade
+// 5. 'diagonalCurtain' - Parting diagonal gold curtain panels
+// 6. Default - Clean springy slide + fade
 
 const transitionVariants = {
   // Default Transition
@@ -53,7 +54,7 @@ const transitionVariants = {
     animate: { 
       rotateY: 0, 
       opacity: 1,
-      transition: { duration: 0.7, ease: [0.34, 1.56, 0.64, 1] } // spring-like bounce
+      transition: { duration: 0.7, ease: [0.34, 1.56, 0.64, 1] } 
     },
     exit: { 
       rotateY: -90, 
@@ -75,6 +76,36 @@ const transitionVariants = {
       x: -50,
       transition: { duration: 0.3 } 
     }
+  },
+
+  // Diagonal curtain slide panels parting from center
+  diagonalCurtain: {
+    initial: { opacity: 0, scale: 0.97 },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.5, delay: 0.35 } 
+    },
+    exit: { 
+      opacity: 0, 
+      scale: 1.03,
+      transition: { duration: 0.35 } 
+    }
+  },
+
+  // Pixelated staggered grid dissolve
+  pixelTransition: {
+    initial: { opacity: 0, scale: 0.98 },
+    animate: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.5, delay: 0.55 } 
+    },
+    exit: { 
+      opacity: 0, 
+      scale: 1.02,
+      transition: { duration: 0.45 } 
+    }
   }
 } as const;
 
@@ -90,20 +121,97 @@ const AnimatedPage = ({ children }: AnimatedPageProps) => {
       {/* Golden Shutter Panel (Only for 'cyberSlide') */}
       {transitionType === "cyberSlide" && (
         <>
-          {/* Cover Panel sliding out on entry */}
           <motion.div
             className="fixed inset-0 bg-[#E7BB55] z-50 pointer-events-none"
             initial={{ x: "0%" }}
             animate={{ x: "100%" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
           />
-          {/* Cover Panel sliding in on exit */}
           <motion.div
             className="fixed inset-0 bg-[#E7BB55] z-50 pointer-events-none"
             initial={{ x: "-100%" }}
             exit={{ x: "0%" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
           />
+        </>
+      )}
+
+      {/* Parting Diagonal Golden Curtains (Only for 'diagonalCurtain') */}
+      {transitionType === "diagonalCurtain" && (
+        <>
+          {/* Top-Left Half */}
+          <motion.div
+            className="fixed inset-0 bg-[#E7BB55] z-55 pointer-events-none"
+            style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
+            initial={{ x: "0%", y: "0%" }}
+            animate={{ x: "-100%", y: "-100%" }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          />
+          {/* Bottom-Right Half */}
+          <motion.div
+            className="fixed inset-0 bg-[#E7BB55] z-55 pointer-events-none"
+            style={{ clipPath: "polygon(100% 100%, 100% 0, 0 100%)" }}
+            initial={{ x: "0%", y: "0%" }}
+            animate={{ x: "100%", y: "100%" }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          />
+          {/* Top-Left Exit Cover */}
+          <motion.div
+            className="fixed inset-0 bg-[#E7BB55] z-55 pointer-events-none"
+            style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
+            initial={{ x: "-100%", y: "-100%" }}
+            exit={{ x: "0%", y: "0%" }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          />
+          {/* Bottom-Right Exit Cover */}
+          <motion.div
+            className="fixed inset-0 bg-[#E7BB55] z-55 pointer-events-none"
+            style={{ clipPath: "polygon(100% 100%, 100% 0, 0 100%)" }}
+            initial={{ x: "100%", y: "100%" }}
+            exit={{ x: "0%", y: "0%" }}
+            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          />
+        </>
+      )}
+
+      {/* Pixelated Gold Grid Overlay (Only for 'pixelTransition') */}
+      {transitionType === "pixelTransition" && (
+        <>
+          {/* Enter Dissolve Grid */}
+          <div className="fixed inset-0 z-55 pointer-events-none grid grid-cols-10 grid-rows-10 w-screen h-screen">
+            {Array.from({ length: 100 }).map((_, index) => {
+              const row = Math.floor(index / 10);
+              const col = index % 10;
+              const delay = (row + col) * 0.035 + Math.random() * 0.12;
+              return (
+                <motion.div
+                  key={`pixel-enter-${index}`}
+                  className="bg-[#E7BB55] w-full h-full border border-black/[0.03]"
+                  initial={{ scale: 1.05, opacity: 1 }}
+                  animate={{ scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.35, delay, ease: "easeInOut" }}
+                />
+              );
+            })}
+          </div>
+
+          {/* Exit Cover Grid */}
+          <div className="fixed inset-0 z-55 pointer-events-none grid grid-cols-10 grid-rows-10 w-screen h-screen">
+            {Array.from({ length: 100 }).map((_, index) => {
+              const row = Math.floor(index / 10);
+              const col = index % 10;
+              const delay = (row + col) * 0.035 + Math.random() * 0.12;
+              return (
+                <motion.div
+                  key={`pixel-exit-${index}`}
+                  className="bg-[#E7BB55] w-full h-full border border-black/[0.03]"
+                  initial={{ scale: 0, opacity: 0 }}
+                  exit={{ scale: 1.05, opacity: 1 }}
+                  transition={{ duration: 0.35, delay, ease: "easeInOut" }}
+                />
+              );
+            })}
+          </div>
         </>
       )}
 

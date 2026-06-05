@@ -776,7 +776,7 @@ const Home = () => {
                     title={service.title} 
                     desc={service.desc}
                     linkTo="/services"
-                    stateTransition={{ transition: "glitchSplit" }}
+                    stateTransition={{ transition: "pixelTransition" }}
                   />
                 </motion.div>
               ))}

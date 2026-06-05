@@ -13,7 +13,7 @@ const Header = () => {
 
   const navigation = [
     { name: "Home", href: "/", state: { transition: "default" } },
-    { name: "Our Services", href: "/services", state: { transition: "glitchSplit" } },
+    { name: "Our Services", href: "/services", state: { transition: "pixelTransition" } },
     { name: "E.L.S.A", href: "/elsa", state: { transition: "cyberSlide" } },
     { name: "SnuggleIt", href: "/snuggleit", state: { transition: "circleExpand" } },
     { name: "About", href: "/about", state: { transition: "circleExpand" } },
