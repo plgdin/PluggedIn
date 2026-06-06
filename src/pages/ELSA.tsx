@@ -76,7 +76,7 @@ const CountdownVisualizer: React.FC = () => {
       </div>
       <div className="flex-1 h-2 bg-zinc-900 border border-zinc-800 rounded overflow-hidden relative">
         <motion.div
-          className="absolute left-0 top-0 bottom-0 bg-red-600"
+          className="absolute left-0 top-0 bottom-0 bg-[#E7BB55]"
           initial={{ width: "100%" }}
           animate={{ width: "0%" }}
           transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
@@ -487,62 +487,7 @@ const RadarPointCloudCanvas: React.FC = () => {
         ctx.fill();
       });
 
-      ctx.font = "9px monospace";
-      ctx.fillStyle = "rgba(231, 187, 85, 0.75)";
-      ctx.fillText(`RADAR NODE: ESP32-C3`, 25, 35);
-      ctx.fillText(`FREQUENCY: 24.15 GHz (mmWave)`, 25, 50);
-      ctx.fillText(`TARGET STATE: ${state.toUpperCase()}`, 25, 65);
-      
-      const rate = state === "falling" ? "92 Hz" : "20 Hz";
-      ctx.fillText(`SAMPLE RATE : ${rate}`, 25, 80);
-
-      const graphX = 25;
-      const graphY = h - 60;
-      const graphW = 120;
-      const graphH = 35;
-
-      ctx.strokeStyle = "rgba(231, 187, 85, 0.25)";
-      ctx.strokeRect(graphX, graphY, graphW, graphH);
-      ctx.fillStyle = "rgba(231, 187, 85, 0.05)";
-      ctx.fillRect(graphX, graphY, graphW, graphH);
-
-      ctx.beginPath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#E7BB55";
-      for (let gx = 0; gx < graphW; gx++) {
-        let gy = 0;
-        if (state === "standing") {
-          gy = Math.sin((timeMs * 0.01) + gx * 0.15) * 3 + (Math.sin(gx * 0.05) * 1.5);
-        } else if (state === "falling") {
-          gy = Math.sin((timeMs * 0.06) + gx * 0.45) * 12 * Math.exp(-gx * 0.015);
-        } else if (state === "fallen") {
-          gy = (Math.random() - 0.5) * 1.5;
-        } else {
-          gy = Math.sin((timeMs * 0.01) + gx * 0.1) * 4;
-        }
-        
-        const px = graphX + gx;
-        const py = graphY + (graphH * 0.5) + gy;
-        
-        if (gx === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
-      }
-      ctx.stroke();
-      ctx.fillText(`ACCEL PROFILE (G-FORCE)`, graphX, graphY - 6);
-
-      if (state === "falling") {
-        ctx.fillStyle = "rgba(239, 68, 68, 0.85)";
-        ctx.fillRect(w - 180, 25, 150, 22);
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 9px monospace";
-        ctx.fillText(`!! FALL EVENT DETECTED !!`, w - 165, 39);
-      } else {
-        ctx.fillStyle = "rgba(16, 185, 129, 0.85)";
-        ctx.fillRect(w - 180, 25, 150, 22);
-        ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 9px monospace";
-        ctx.fillText(`SYSTEM MONITORING: OK`, w - 165, 39);
-      }
+      // Canvas telemetry text and graphs removed to declutter background
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -965,54 +910,69 @@ const ELSA = () => {
         style={{
           background: 'radial-gradient(circle 800px at var(--global-mouse-x, 50%) var(--global-mouse-y, 50%), rgba(231, 187, 85, 0.04) 0%, rgba(2, 2, 3, 1) 75%, #020203 100%)'
         }}
-        className="relative text-white overflow-x-hidden" 
+        className="relative text-white overflow-x-hidden flex flex-col" 
       >
-        {/* SHOWCASE SCROLL WRAPPER */}
-        <div ref={showcaseRef} className="relative h-[300vh]">
-        {/* Full-Screen Interactive Connected Particle Matrix Grid */}
-        <InteractiveCanvasGrid />
+        {/* Background Canvas Particles */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <InteractiveCanvasGrid />
+        </div>
 
         {/* Decorative Grid Mesh Overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e7bb5505_1px,transparent_1px),linear-gradient(to_bottom,#e7bb5505_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0" />
-        
-        {/* STICKY STAGE */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center">
 
-          {/* --- STAGE 1: INTRO TEXT --- */}
+        {/* HERO SECTION */}
+        <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-4 pt-24 pb-12 z-10">
+          {/* Hero Titles */}
           <motion.div 
-            className="absolute top-[14%] z-0 flex flex-col items-center justify-center pointer-events-none w-full px-4"
-            style={{ opacity: headerTextGlobalOpacity }}
-            initial={{ y: 40, scale: 0.97 }}
-            animate={titleRevealed ? { y: 0, scale: 1 } : { y: 40, scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 85, damping: 14 }}
+            className="flex flex-col items-center justify-center text-center max-w-4xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-             <motion.h1 
-               style={{ x: textTopX, y: textTopY, opacity: textOpacity }}
-               className="font-display text-[#E7BB55] text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-widest text-center"
-             >
+             <h1 className="font-display text-[#E7BB55] text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-widest leading-none">
                Emergency Link
-             </motion.h1>
- 
-             <motion.h1 
-                style={{ x: textBottomX, y: textBottomY, opacity: textOpacity }}
-                className="font-display text-white text-4xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-wide mt-2 text-center"
-             >
+             </h1>
+             <h1 className="font-display text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-wide mt-3 leading-none">
                For Smart Alert
-             </motion.h1>
+             </h1>
           </motion.div>
 
-          {/* --- INTRO CTA BUTTON --- */}
+          {/* Centered static ELSA device image */}
           <motion.div
-            style={{ 
-              opacity: introButtonOpacity,
-              pointerEvents: introButtonPointerEvents 
-            }}
-            className="absolute z-30 bottom-[14%] right-[8%] flex flex-col items-center md:items-end gap-3 text-center md:text-right"
+            className="relative w-full max-w-[800px] aspect-video mt-10 mb-8 cursor-pointer flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="font-display text-[#E7BB55] text-6xl font-black tracking-widest mb-1">
-              E.L.S.A
-            </h1>
+            {/* Ambient scanning aura */}
+            <div className="absolute inset-0 bg-[#E7BB55]/5 filter blur-[60px] rounded-full pointer-events-none opacity-40" />
+            
+            <img 
+              src={elsaDeviceImage} 
+              alt="ELSA Device" 
+              className="w-full h-full object-contain relative z-10"
+            />
 
+            {/* Corner target lines */}
+            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
+
+            {/* Scanning line sweep */}
+            <div className="absolute inset-x-4 top-0 bottom-0 bg-[linear-gradient(to_bottom,rgba(231,187,85,0)_40%,rgba(231,187,85,0.25)_50%,rgba(231,187,85,0)_60%)] bg-[size:100%_200%] pointer-events-none z-20 animate-laser-sweep" style={{ animationDuration: '4s' }} />
+          </motion.div>
+
+          {/* CTA E.L.S.A Inspect Link */}
+          <motion.div
+            className="flex flex-col items-center gap-3 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <h2 className="font-display text-[#E7BB55] text-4xl sm:text-5xl font-black tracking-widest">
+              E.L.S.A
+            </h2>
             <Button 
               variant="secondary" 
               size="default" 
@@ -1025,202 +985,152 @@ const ELSA = () => {
               </Link>
             </Button>
           </motion.div>
+        </section>
 
-
-          {/* --- THE DEVICE --- */}
-          <motion.div
-            onMouseEnter={handleDeviceHover}
-            className="relative z-10 w-[90vw] md:w-[60vw] max-w-[1000px] aspect-video group cursor-pointer" 
-            style={{
-              scale: deviceScale,
-              x: deviceX,
-              y: deviceY,
-              rotate: deviceRotate, 
-            }}
-            transition={{ type: "spring", stiffness: 60, damping: 20 }}
-          >
-            {/* Ambient scanning aura */}
-            <div className="absolute inset-0 bg-[#E7BB55]/5 filter blur-[60px] rounded-full pointer-events-none opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
-            
-            <img 
-              src={elsaDeviceImage} 
-              alt="ELSA Device" 
-              className="w-full h-full object-contain relative z-10"
-            />
-
-            {/* Futuristic target corner elements around the device view */}
-            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
-            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
-            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#E7BB55]/30 pointer-events-none z-20" />
-            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#E7BB55]/30 pointer-events-none z-20" />
-
-            {/* Glowing scanning laser line */}
-            <div className="absolute inset-x-4 top-0 bottom-0 bg-[linear-gradient(to_bottom,rgba(231,187,85,0)_40%,rgba(231,187,85,0.25)_50%,rgba(231,187,85,0)_60%)] bg-[size:100%_200%] pointer-events-none z-20 animate-laser-sweep" style={{ animationDuration: '4s' }} />
-          </motion.div>
-
-
-          {/* --- STAGE 2: CONTENT (What is ELSA) --- */}
+        {/* SECTION: WHAT IS ELSA */}
+        <section className="relative py-20 px-6 max-w-5xl mx-auto z-10 w-full">
           <motion.div 
-            style={{ opacity: infoOpacity, x: infoX }}
-            className="absolute left-[5%] md:left-[10%] top-[20%] md:top-1/4 max-w-2xl z-20 pointer-events-none"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-6"
           >
-            <h2 className="font-display text-white text-4xl md:text-7xl font-extrabold mb-6 md:mb-8 leading-tight">
-              What is <br/> <span className="text-[#E7BB55]">E.L.S.A?</span>
+            <h2 className="font-display text-white text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              What is <span className="text-[#E7BB55]">E.L.S.A?</span>
             </h2>
-            <p className="text-zinc-300 text-base md:text-xl leading-relaxed font-modern bg-black/60 border border-zinc-800 backdrop-blur-md p-5 rounded-xl md:bg-transparent md:border-none md:backdrop-blur-none md:p-0">
+            <p className="text-zinc-300 text-sm sm:text-base md:text-lg leading-relaxed font-modern bg-[#050507]/40 border border-zinc-900 backdrop-blur-sm p-6 rounded-xl">
               One of the core innovations we're developing is ELSA - Emergency Link for Smart Alert, a context-aware emergency response system.
             </p>
-            {/* Box below description */}
-            <div className="bg-black/75 border border-[#E7BB55]/15 rounded-lg p-5 md:p-6 backdrop-blur-md mt-6">
-              <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-modern font-medium">
+            <div className="bg-black/60 border border-[#E7BB55]/15 rounded-xl p-6 backdrop-blur-md">
+              <p className="text-zinc-400 text-xs sm:text-sm md:text-base leading-relaxed font-modern font-medium">
                 With a single or double press of a discreet button, users can trigger alerts to medical services or law enforcement, depending on the situation. ELSA's intelligent design ensures minimal false alarms, fast communication, and seamless integration with smart environments—making it a life-saving layer of security in modern homes.
               </p>
             </div>
           </motion.div>
+        </section>
 
-
-          {/* --- STAGE 2.5: SYSTEM ARCHITECTURE & DIAGNOSTICS (NEW) --- */}
-          <motion.div
-            style={{ opacity: techDiagOpacity, x: techDiagX }}
-            className="absolute left-[5%] md:left-[8%] top-[14%] bottom-[14%] w-[90vw] md:w-[45vw] z-20 flex flex-col justify-center gap-4 pointer-events-none overflow-y-auto"
+        {/* SECTION: SYSTEM ARCHITECTURE */}
+        <section className="relative py-20 px-6 max-w-6xl mx-auto z-10 w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-8"
           >
-            <h2 className="font-display text-white text-2xl md:text-3xl font-black uppercase tracking-widest border-b border-[#E7BB55]/20 pb-2 mb-2 flex items-center gap-2">
-              <ChipIcon className="w-5 h-5 text-[#E7BB55]" />
+            <h2 className="font-display text-white text-2xl sm:text-4xl font-black uppercase tracking-widest border-b border-[#E7BB55]/20 pb-3 flex items-center gap-2">
+              <ChipIcon className="w-6 h-6 text-[#E7BB55]" />
               TECHNICAL <span className="text-[#E7BB55]">ARCHITECTURE</span>
             </h2>
 
-            {/* Subsystem 1: Master Control */}
-            <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-4 backdrop-blur-md flex flex-col justify-between gap-3 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
-              <div>
-                <h3 className="font-display text-white text-xs font-bold uppercase tracking-wider flex justify-between items-center mb-1">
-                  <span>01 // Master MCU Controller</span>
-                  <span className="text-[#E7BB55] text-[9px] font-mono">[ESP32-S3 CORE]</span>
-                </h3>
-                <p className="font-modern text-[11px] text-zinc-400 leading-normal">
-                  Powered by an ESP32-S3 microcontroller. Triggers alerts by button press, pre-registered smart sensor links, or voice recognition. A resident can say <strong className="text-white font-semibold">"Help me"</strong> to alert neighbors, hospitals, and police. Yelling <strong className="text-white font-semibold">"Cancel"</strong> instantly stops the sequence if triggered by mistake.
-                </p>
-              </div>
-              <div className="mt-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Subsystem 1: Master Control */}
+              <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-5 backdrop-blur-md flex flex-col justify-between gap-4 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
+                <div>
+                  <h3 className="font-display text-white text-sm font-bold uppercase tracking-wider flex justify-between items-center mb-2">
+                    <span>01 // Master MCU</span>
+                    <span className="text-[#E7BB55] text-[9px] font-mono">[ESP32-S3 CORE]</span>
+                  </h3>
+                  <p className="font-modern text-xs text-zinc-400 leading-normal">
+                    Powered by an ESP32-S3 microcontroller. Triggers alerts by button press, pre-registered smart sensor links, or voice recognition. A resident can say <strong className="text-white font-semibold">"Help me"</strong> to alert neighbors, hospitals, and police. Yelling <strong className="text-white font-semibold">"Cancel"</strong> instantly stops the sequence if triggered by mistake.
+                  </p>
+                </div>
                 <SoundwaveVisualizer />
               </div>
-            </div>
 
-            {/* Subsystem 2: Escalation Engine */}
-            <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-4 backdrop-blur-md flex flex-col justify-between gap-3 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
-              <div>
-                <h3 className="font-display text-white text-xs font-bold uppercase tracking-wider flex justify-between items-center mb-1">
-                  <span>02 // COMMUNITY ESCALATION PIPELINE</span>
-                  <span className="text-[#E7BB55] text-[9px] font-mono">[60S FALSE_ALARM_DELAY]</span>
-                </h3>
-                <p className="font-modern text-[11px] text-zinc-400 leading-normal">
-                  Alerts notify the local security guard or caretaker immediately, giving them a <strong className="text-white font-semibold">60-second window</strong> to cancel. If uncancelled, the system escalates by sending automated voice calls and SMS alerts to external responders containing flat details, exact location coordinates, and medical history.
-                </p>
-              </div>
-              <div className="mt-1">
+              {/* Subsystem 2: Escalation Engine */}
+              <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-5 backdrop-blur-md flex flex-col justify-between gap-4 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
+                <div>
+                  <h3 className="font-display text-white text-sm font-bold uppercase tracking-wider flex justify-between items-center mb-2">
+                    <span>02 // ESCALATION PIPELINE</span>
+                    <span className="text-[#E7BB55] text-[9px] font-mono">[60S DELAY]</span>
+                  </h3>
+                  <p className="font-modern text-xs text-zinc-400 leading-normal">
+                    Alerts notify the local security guard or caretaker immediately, giving them a <strong className="text-white font-semibold">60-second window</strong> to cancel. If uncancelled, the system escalates by sending automated voice calls and SMS alerts to external responders containing flat details, exact location coordinates, and medical history.
+                  </p>
+                </div>
                 <CountdownVisualizer />
               </div>
-            </div>
 
-            {/* Subsystem 3: Fall Detection Node */}
-            <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-4 backdrop-blur-md flex flex-col justify-between gap-3 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
-              <div>
-                <h3 className="font-display text-white text-xs font-bold uppercase tracking-wider flex justify-between items-center mb-1">
-                  <span>03 // MM-WAVE RADAR AUXILIARY UNIT</span>
-                  <span className="text-[#E7BB55] text-[9px] font-mono">[ESP32-C3 RADAR]</span>
-                </h3>
-                <p className="font-modern text-[11px] text-zinc-400 leading-normal">
-                  Includes a secondary fall-detection module built on an ESP32-C3 microcontroller. Integrates an <strong className="text-white font-semibold">LD2420 mmWave radar sensor</strong> and vibration sensor to auto-detect sudden falls, communicating with the main node via secure RF transmission so help is called even if the resident is incapacitated.
-                </p>
-              </div>
-              <div className="mt-1">
+              {/* Subsystem 3: Fall Detection Node */}
+              <div className="bg-[#050507]/90 border-l-2 border-[#E7BB55] border-y border-r border-[#E7BB55]/15 rounded-lg p-5 backdrop-blur-md flex flex-col justify-between gap-4 shadow-[0_0_15px_rgba(231,187,85,0.02)]">
+                <div>
+                  <h3 className="font-display text-white text-sm font-bold uppercase tracking-wider flex justify-between items-center mb-2">
+                    <span>03 // MM-WAVE RADAR</span>
+                    <span className="text-[#E7BB55] text-[9px] font-mono">[ESP32-C3 RADAR]</span>
+                  </h3>
+                  <p className="font-modern text-xs text-zinc-400 leading-normal">
+                    Includes a secondary fall-detection module built on an ESP32-C3 microcontroller. Integrates an <strong className="text-white font-semibold">LD2420 mmWave radar sensor</strong> and vibration sensor to auto-detect sudden falls, communicating with the main node via secure RF transmission so help is called even if the resident is incapacitated.
+                  </p>
+                </div>
                 <RadarVisualizer />
               </div>
             </div>
           </motion.div>
+        </section>
 
-
-          {/* --- STAGE 3: HEADER --- */}
+        {/* SECTION: FEATURES */}
+        <section className="relative py-20 px-6 max-w-6xl mx-auto z-10 w-full">
           <motion.div 
-            style={{ opacity: featuresHeaderOpacity }}
-            className="absolute top-[12%] w-full z-20 text-center pointer-events-none"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col gap-8"
           >
-            <h2 className="font-display text-white text-4xl md:text-6xl font-black uppercase tracking-widest">
+            <h2 className="font-display text-white text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-widest text-center">
               Features of <span className="text-[#E7BB55]">E.L.S.A</span>
             </h2>
-          </motion.div>
 
-
-          {/* --- STAGE 4: ROTATING FEATURES --- */}
-          {features.map((feature, index) => {
-             const totalItems = features.length;
-             const angleStep = 360 / totalItems;
-             const targetAngleBase = 270; // Top
-             
-             // Calculate final slot
-             const finalAngle = targetAngleBase + (index * angleStep);
-
-             return (
-               <FeatureOrb
-                 key={index}
-                 feature={feature}
-                 index={index}
-                 scrollProgress={smoothProgress}
-                 finalAngle={finalAngle}
-                 stayVisibleUntil={0.95} 
-               />
-             );
-          })}
-
-          {/* --- STAGE 5: CTA BUTTONS (END OF PAGE) --- */}
-          <motion.div 
-            style={{ 
-              opacity: buttonsOpacity, 
-              y: buttonsYPos,
-              display: buttonsDisplay
-            }}
-            className="absolute bottom-[10%] md:bottom-[15%] z-50 flex-col sm:flex-row gap-4 justify-center w-full px-4"
-          >
-              <Button 
-                size="lg" 
-                className="text-sm font-display font-bold uppercase tracking-wider bg-[#E7BB55] text-black hover:bg-black hover:text-[#E7BB55] hover:border hover:border-[#E7BB55]/40 px-8 transition-transform duration-300 ease-in-out hover:scale-105 rounded shadow-[0_0_20px_rgba(231,187,85,0.2)]" 
-                asChild
-              >
-                <Link to="/product-inspect"> 
-                  Inspect the Product <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="text-sm font-display font-bold uppercase tracking-wider bg-transparent border-[#E7BB55] text-[#E7BB55] hover:bg-[#E7BB55]/10 px-8 transition-transform duration-300 ease-in-out hover:scale-105 rounded" 
-                asChild
-              >
-                <Link to="/contact">Contact Us</Link>
-              </Button>
-          </motion.div>
-
-
-          {/* --- SCROLL INDICATOR --- */}
-          <motion.div 
-            style={{ opacity: scrollIndicatorOpacity }}
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-50 pointer-events-none"
-          >
-            <span className="font-display text-[#E7BB55] text-xs font-bold tracking-[0.2em] uppercase opacity-80 animate-pulse">
-              Scroll to Discover
-            </span>
-            <div className="w-[30px] h-[50px] border-2 border-[#E7BB55]/40 rounded-full flex justify-center p-2 opacity-85">
-              <motion.div 
-                animate={{ y: [0, 12, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-1.5 h-1.5 bg-[#E7BB55] rounded-full"
-              />
+            {/* Clean responsive grid of features cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {features.map((feature, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ 
+                    scale: 1.03, 
+                    boxShadow: "0 0 25px rgba(231, 187, 85, 0.15)",
+                    borderColor: "rgba(231, 187, 85, 0.5)"
+                  }}
+                  className="bg-[#050507]/90 border border-[#E7BB55]/15 rounded-xl p-5 backdrop-blur-sm flex flex-col items-center text-center transition-all duration-300"
+                >
+                  <div className="p-3 bg-[#E7BB55]/10 border border-[#E7BB55]/20 rounded-full mb-3 text-[#E7BB55]">
+                    {feature.icon}
+                  </div>
+                  <h3 className="font-display text-[#E7BB55] text-sm sm:text-base font-bold leading-tight mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-zinc-400 text-xs leading-relaxed font-sans">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
+        </section>
 
-        </div>
+        {/* SECTION: HERO BOTTOM CTA BUTTONS */}
+        <section className="relative py-12 px-6 z-10 w-full flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button 
+            size="lg" 
+            className="text-sm font-display font-bold uppercase tracking-wider bg-[#E7BB55] text-black hover:bg-black hover:text-[#E7BB55] hover:border hover:border-[#E7BB55]/40 px-8 py-5 transition-transform duration-300 ease-in-out hover:scale-105 rounded shadow-[0_0_20px_rgba(231,187,85,0.2)] w-full sm:w-auto" 
+            asChild
+          >
+            <Link to="/product-inspect"> 
+              Inspect the Product <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
 
-        </div>{/* END SHOWCASE SCROLL WRAPPER */}
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-sm font-display font-bold uppercase tracking-wider bg-transparent border-[#E7BB55] text-[#E7BB55] hover:bg-[#E7BB55]/10 px-8 py-5 transition-transform duration-300 ease-in-out hover:scale-105 rounded w-full sm:w-auto" 
+            asChild
+          >
+            <Link to="/contact">Contact Us</Link>
+          </Button>
+        </section>
 
 
         {/* ================================================================ */}
@@ -1294,7 +1204,7 @@ const ELSA = () => {
                   <div className="flex items-start gap-3 bg-black/40 border border-zinc-800 rounded-lg p-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#E7BB55] mt-2 shrink-0" />
                     <p className="font-modern text-zinc-400 text-sm leading-relaxed">
-                      <strong className="text-white font-semibold">Voice Command</strong> — Say <span className="font-mono text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded text-xs">"Help me"</span> to instantly alert nearby caretakers, hospitals, and police. Say <span className="font-mono text-red-400 bg-red-400/10 px-1.5 py-0.5 rounded text-xs">"Cancel"</span> to stop a false alarm.
+                      <strong className="text-white font-semibold">Voice Command</strong> — Say <span className="font-mono text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded text-xs">"Help me"</span> to instantly alert nearby caretakers, hospitals, and police. Say <span className="font-mono text-[#E7BB55] bg-[#E7BB55]/10 px-1.5 py-0.5 rounded text-xs">"Cancel"</span> to stop a false alarm.
                     </p>
                   </div>
                   <div className="flex items-start gap-3 bg-black/40 border border-zinc-800 rounded-lg p-3">
@@ -1444,24 +1354,7 @@ const ELSA = () => {
 
 
 
-            {/* --- BOTTOM CTA --- */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <Button 
-                size="lg" 
-                className="text-sm font-display font-bold uppercase tracking-wider bg-[#E7BB55] text-black hover:bg-black hover:text-[#E7BB55] hover:border hover:border-[#E7BB55]/40 px-10 py-6 transition-all duration-300 ease-in-out hover:scale-105 rounded-lg shadow-[0_0_30px_rgba(231,187,85,0.2)]" 
-                asChild
-              >
-                <Link to="/product-inspect">
-                  Inspect the Product in 3D <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </motion.div>
+
 
           </div>
         </div>
@@ -1471,111 +1364,6 @@ const ELSA = () => {
   );
 };
 
-// --- SUB-COMPONENT FOR ORBITING FEATURES WITH CONNECTION LINES ---
-const FeatureOrb = ({ 
-  feature, 
-  index,
-  scrollProgress, 
-  finalAngle,
-  stayVisibleUntil
-}: { 
-  feature: any, 
-  index: number,
-  scrollProgress: MotionValue<number>,
-  finalAngle: number,
-  stayVisibleUntil: number
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const animStart = 0.50; // Delay orbit start until after technical diagnostics slide has concluded
-  const animEnd = 0.90;
-  
-  // Stagger entry
-  const entryDelay = 0.05 * index; 
-  const myStart = animStart + entryDelay;
-  
-  // 1. Opacity (driven by scroll range fadeout)
-  const opacity = useTransform(scrollProgress, 
-    [myStart, myStart + 0.05, stayVisibleUntil, stayVisibleUntil + 0.05], 
-    [0, 1, 1, 0]
-  );
-
-  // 2. Angle Interpolation
-  const currentAngle = useTransform(scrollProgress,
-    [myStart, animEnd], 
-    [90, finalAngle] 
-  );
-
-  // 3. Radius Configuration
-  const radiusX = 38; // vmin
-  const radiusY = 27; // vmin
-
-  // Math: Convert Polar to Cartesian
-  const x = useTransform(currentAngle, (a) => {
-    const rad = (a * Math.PI) / 180;
-    return `${Math.cos(rad) * radiusX}vmin`; 
-  });
-  
-  const y = useTransform(currentAngle, (a) => {
-    const rad = (a * Math.PI) / 180;
-    return `${Math.sin(rad) * radiusY}vmin`; 
-  });
-
-  // Calculate negative vectors back to the absolute center of E.L.S.A
-  const negX = useTransform(x, (v) => `-${v}`);
-  const negY = useTransform(y, (v) => `-${v}`);
-
-  return (
-    <motion.div 
-      style={{ x, y, opacity }}
-      className="absolute top-1/2 left-[43%] -translate-x-1/2 -translate-y-1/2 z-30 flex justify-center items-center pointer-events-auto"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Holographic Connecting Line */}
-      <div className="absolute top-1/2 left-1/2 w-0 h-0 overflow-visible z-[-1] pointer-events-none">
-        <svg className="overflow-visible w-0 h-0">
-          <motion.line
-            x1="0"
-            y1="0"
-            x2={negX}
-            y2={negY}
-            stroke="#E7BB55"
-            strokeWidth={isHovered ? 2.5 : 1}
-            strokeOpacity={isHovered ? 0.95 : 0.45}
-            strokeDasharray={isHovered ? "none" : "6, 6"}
-            animate={{ strokeDashoffset: [0, -24] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 1.2 }}
-          />
-        </svg>
-      </div>
-
-      <motion.div 
-        className="
-          w-[160px] md:w-[200px] 
-          bg-black/90 backdrop-blur-md border border-[#E7BB55]/20 
-          rounded-xl p-3.5 shadow-[0_0_15px_rgba(231,187,85,0.05)] cursor-default
-          flex flex-col items-center text-center transition-all duration-300
-        "
-        whileHover={{ 
-          scale: 1.1, 
-          zIndex: 50,
-          boxShadow: "0 0 25px rgba(231, 187, 85, 0.25)",
-          borderColor: "rgba(231, 187, 85, 0.6)"
-        }}
-      >
-        <div className="p-2 bg-[#E7BB55]/10 border border-[#E7BB55]/20 rounded-full mb-1 text-[#E7BB55] transition-colors duration-300">
-          {feature.icon}
-        </div>
-        <h3 className="font-display text-[#E7BB55] text-sm font-bold leading-tight mb-1">
-          {feature.title}
-        </h3>
-        <p className="text-zinc-400 text-[10px] md:text-xs leading-tight font-sans line-clamp-2">
-          {feature.description}
-        </p>
-      </motion.div>
-    </motion.div>
-  );
-};
+// Orbit features visualizer component removed
 
 export default ELSA;

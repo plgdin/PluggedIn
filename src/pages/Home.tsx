@@ -108,13 +108,11 @@ const DynamicTiltCard = ({ icon, title, desc, linkTo, stateTransition }: {
 const HolographicHudCard = ({ 
   icon, 
   title, 
-  desc, 
-  type 
+  desc 
 }: { 
   icon: React.ReactNode; 
   title: string; 
   desc: string; 
-  type: 'comfort' | 'safety' | 'budget';
 }) => {
   const [tilt, setTilt] = React.useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = React.useState(false);
@@ -157,133 +155,24 @@ const HolographicHudCard = ({
           {/* Animated Icon Container */}
           <div className="h-14 w-14 rounded-lg bg-black border border-[#E7BB55]/20 flex items-center justify-center mb-6 text-[#E7BB55] group-hover:bg-[#E7BB55] group-hover:text-black group-hover:shadow-[0_0_15px_rgba(231,187,85,0.4)] transition-all duration-500">
             <motion.div 
-              animate={isHovered ? { scale: [1, 1.25, 1, 1.25, 1], rotate: type === 'safety' ? [0, 90, 180, 270, 360] : 0 } : {}}
-              transition={{ repeat: type === 'safety' ? Infinity : 0, duration: type === 'safety' ? 4 : 1.2, ease: "easeInOut" }}
+              animate={isHovered ? { scale: [1, 1.25, 1] } : {}}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             >
               {icon}
             </motion.div>
           </div>
 
-          {/* Title with Tech glow scan trigger */}
+          {/* Title */}
           <h3 className="font-tech text-lg uppercase tracking-wider mb-3 text-white group-hover:text-[#E7BB55] transition-colors duration-300">
             {title}
           </h3>
 
           {/* Description */}
-          <p className="font-modern text-sm text-zinc-400 tracking-wide leading-relaxed mb-6">
+          <p className="font-modern text-sm text-zinc-400 tracking-wide leading-relaxed">
             {desc}
           </p>
         </div>
-
-        {/* Dynamic Holographic Sub-Panels (Popup effect inside card) */}
-        <div className="mt-auto border-t border-[#E7BB55]/10 pt-4 relative overflow-hidden min-h-[120px]">
-          {type === 'comfort' && (
-            <div className="space-y-4">
-              <div className="flex justify-between items-center text-[10px] font-tech text-zinc-500 uppercase tracking-widest">
-                <span>Sys Mode: Optimal</span>
-                <span className="text-[#E7BB55] animate-pulse">Pulse: Active</span>
-              </div>
-              <svg className="w-full h-12 text-[#E7BB55]" viewBox="0 0 200 50">
-                {/* Background Grid Lines */}
-                <line x1="0" y1="25" x2="200" y2="25" stroke="rgba(231,187,85,0.08)" strokeWidth="0.5" strokeDasharray="2 2" />
-                <line x1="50" y1="0" x2="50" y2="50" stroke="rgba(231,187,85,0.08)" strokeWidth="0.5" strokeDasharray="2 2" />
-                <line x1="100" y1="0" x2="100" y2="50" stroke="rgba(231,187,85,0.08)" strokeWidth="0.5" strokeDasharray="2 2" />
-                <line x1="150" y1="0" x2="150" y2="50" stroke="rgba(231,187,85,0.08)" strokeWidth="0.5" strokeDasharray="2 2" />
-                {/* Heartbeat EKG Path */}
-                <motion.path
-                  d="M 0 25 L 45 25 L 52 10 L 60 40 L 68 5 L 75 32 L 82 25 L 200 25"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  initial={{ pathLength: 0.15 }}
-                  animate={isHovered ? { pathLength: 1 } : { pathLength: 0.35 }}
-                  transition={{ duration: 1.5, ease: "easeInOut" }}
-                />
-              </svg>
-              <div className="flex justify-between items-center text-[10px] font-tech text-zinc-400">
-                <span>UX SATISFACTION</span>
-                <span className="text-white font-bold">98.4%</span>
-              </div>
-            </div>
-          )}
-
-          {type === 'safety' && (
-            <div className="space-y-3">
-              <div className="flex justify-between items-center text-[10px] font-tech text-zinc-500 uppercase tracking-widest">
-                <span>Radar Scan</span>
-                <span className="text-[#E7BB55] animate-pulse">Failsafe: ON</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="relative w-14 h-14 border border-[#E7BB55]/30 rounded-full flex items-center justify-center overflow-hidden shrink-0">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_45%,rgba(231,187,85,0.08)_50%)]" />
-                  {/* Rotating Sweeper */}
-                  <motion.div 
-                    className="absolute w-full h-[1px] bg-gradient-to-r from-transparent to-[#E7BB55] origin-center"
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 2.5, ease: "linear" }}
-                  />
-                  {/* Glowing blips */}
-                  <div className="absolute top-3 left-4 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_white] animate-ping" />
-                  <div className="absolute bottom-4 right-3 w-1 h-1 bg-[#E7BB55] rounded-full shadow-[0_0_6px_#E7BB55] animate-pulse" />
-                </div>
-                <div className="flex-1 space-y-1 text-[9px] font-tech text-zinc-400">
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#E7BB55]" />
-                    <span>AES-256 OVERLAY</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#E7BB55]" />
-                    <span>24/7 DYNAMIC MONITOR</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#E7BB55]" />
-                    <span>ZERO SHUTDOWN TRIPS</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {type === 'budget' && (
-            <div className="space-y-2">
-              <div className="flex justify-between items-center text-[10px] font-tech text-zinc-500 uppercase tracking-widest">
-                <span>Value Meter</span>
-                <span className="text-[#E7BB55]">+140% ROI</span>
-              </div>
-              <div className="space-y-1.5">
-                {[
-                  { label: "EFFICIENCY", val: 92 },
-                  { label: "QUALITY RATE", val: 96 },
-                  { label: "UNIT COST RATIO", val: 32 }
-                ].map((item, idx) => (
-                  <div key={idx} className="space-y-0.5">
-                    <div className="flex justify-between text-[9px] font-tech text-zinc-400">
-                      <span>{item.label}</span>
-                      <span>{item.val}%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-black border border-[#E7BB55]/10 rounded-full overflow-hidden">
-                      <motion.div 
-                        className="h-full bg-gradient-to-r from-[#E7BB55]/50 to-[#E7BB55]"
-                        initial={{ width: "15%" }}
-                        animate={isHovered ? { width: `${item.val}%` } : { width: "15%" }}
-                        transition={{ duration: 1.2, ease: "easeOut", delay: idx * 0.1 }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
       </div>
-
-      {/* Cybernetic Scan Laser Line Sweep */}
-      <div 
-        className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#E7BB55]/40 to-transparent pointer-events-none"
-        style={{
-          animation: "scanline 4s linear infinite",
-        }}
-      />
 
       {/* Grid Overlay inside card */}
       <div className="absolute inset-0 bg-[radial-gradient(#E7BB55_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.015] group-hover:opacity-[0.04] transition-opacity duration-300 pointer-events-none" />
@@ -711,9 +600,9 @@ const Home = () => {
             {/* Staggered dynamic HUD cards with spring bounce popup entries */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { type: "comfort" as const, icon: <Heart className="h-6 w-6" />, title: "Comfort First", desc: "Every product is designed with comfort and user experience as the top priority." },
-                { type: "safety" as const, icon: <Shield className="h-6 w-6" />, title: "Safety & Reliability", desc: "Built with safety in mind, ensuring reliable performance when it matters most." },
-                { type: "budget" as const, icon: <DollarSign className="h-6 w-6" />, title: "Budget-Conscious", desc: "Quality products without the premium price tag—innovation for everyone." }
+                { icon: <Heart className="h-6 w-6" />, title: "Comfort First", desc: "Every product is designed with comfort and user experience as the top priority." },
+                { icon: <Shield className="h-6 w-6" />, title: "Safety & Reliability", desc: "Built with safety in mind, ensuring reliable performance when it matters most." },
+                { icon: <DollarSign className="h-6 w-6" />, title: "Budget-Conscious", desc: "Quality products without the premium price tag—innovation for everyone." }
               ].map((feature, i) => (
                 <motion.div
                   key={i}
@@ -723,7 +612,6 @@ const Home = () => {
                   transition={{ type: "spring", stiffness: 100, damping: 14, delay: i * 0.15 }}
                 >
                   <HolographicHudCard 
-                    type={feature.type}
                     icon={feature.icon} 
                     title={feature.title} 
                     desc={feature.desc} 

@@ -1,12 +1,36 @@
 import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Users, Target, Lightbulb } from "lucide-react";
+import AnimatedPage from "../components/AnimatedPage";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 70,
+      damping: 18
+    }
+  }
+};
 
 const About = () => {
   return (
-    <>
+    <AnimatedPage>
       {/* SEO META TAGS */}
       <Helmet>
         <title>About Us | Plugged In (PLGDIN)</title>
@@ -16,99 +40,150 @@ const About = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen py-20 bg-white font-lato">
-        <div className="container px-4">
+      {/* Styled in rich tech black to match the website branding */}
+      <div 
+        className="min-h-screen py-24 bg-[#020203] text-white overflow-x-hidden relative"
+        style={{
+          background: 'radial-gradient(circle 900px at 50% 50%, rgba(231, 187, 85, 0.03) 0%, rgba(2, 2, 3, 1) 80%, #020203 100%)'
+        }}
+      >
+        {/* Header decoration line */}
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E7BB55]/20 to-transparent z-10" />
+
+        {/* Dynamic mesh grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e7bb5503_1px,transparent_1px),linear-gradient(to_bottom,#e7bb5503_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none z-0" />
+
+        <div className="container px-6 relative z-10">
+          
           {/* Who Are We Section */}
-          <section className="mb-20">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-              {/* Heading: Playfair Display */}
-              <h1 className="font-playfair text-4xl md:text-5xl font-bold text-black mb-6">
+          <section className="mb-24 flex flex-col items-center">
+            <div className="relative w-full text-center mb-16">
+              {/* White Backlight Backdrop Glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[400px] h-[150px] bg-white/10 filter blur-[80px] rounded-full pointer-events-none opacity-60" />
+              
+              <motion.h1 
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 90, damping: 15 }}
+                className="font-display text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 text-5xl md:text-7xl font-black uppercase tracking-widest relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.06)]"
+              >
                 Who Are We?
-              </h1>
-              {/* Description: Geometric Sans tracking-wider */}
-              <p className="font-sans tracking-wider text-xl text-black/70">
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.8 }}
+                className="font-sans tracking-wider text-lg md:text-xl text-zinc-300 max-w-3xl mx-auto mt-8 relative z-10 leading-relaxed"
+              >
                 PluggedIn was founded in Trivandrum by five passionate Computer Science students from Marian Engineering College.
-              </p>
+              </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-16 items-center">
-              
+            {/* Mission, Team Overview, Innovation Animated Cards */}
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid md:grid-cols-3 gap-8 w-full max-w-6xl"
+            >
               {/* Card 1: Our Mission */}
-              <Card className="text-center h-full border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <Target className="h-12 w-12 text-[#E7BB55] mx-auto mb-4" />
-                  <CardTitle className="font-playfair text-2xl text-black">Our Mission</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {/* Description: Geometric Sans tracking-wider */}
-                  <CardDescription className="font-sans tracking-wider text-black/70 leading-relaxed">
-                    To develop practical, affordable tech that genuinely helps people and makes everyday living smarter, safer, and more secure.
-                  </CardDescription>
-                </CardContent>
-              </Card>
+              <motion.div variants={cardVariants}>
+                <Card className="text-center h-full border-[#E7BB55]/15 bg-black/60 backdrop-blur-md transition-all duration-300 ease-in-out hover:border-[#E7BB55]/40 hover:shadow-[0_0_30px_rgba(231,187,85,0.1)] rounded-lg">
+                  <CardHeader className="pt-8">
+                    <Target className="h-10 w-10 text-[#E7BB55] mx-auto mb-3" />
+                    <CardTitle className="font-display text-xl uppercase tracking-widest text-[#E7BB55]">Our Mission</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-8">
+                    <CardDescription className="font-sans tracking-wider text-zinc-400 leading-relaxed text-sm">
+                      To develop practical, affordable tech that genuinely helps people and makes everyday living smarter, safer, and more secure.
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              {/* Card 2: Our Team */}
-              <Card className="text-center h-full border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <Users className="h-12 w-12 text-[#E7BB55] mx-auto mb-4" />
-                  <CardTitle className="font-playfair text-2xl text-black">Our Team</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center justify-center gap-4">
-                  {/* Description: Geometric Sans tracking-wider */}
-                  <CardDescription className="font-sans tracking-wider text-black/70 leading-relaxed">
-                    United by a vision to save lives through technology.
-                  </CardDescription>
-                  {/* Button: Geometric Sans tracking-wider */}
-                  <Button asChild className="font-sans tracking-wider text-sm px-6 bg-black text-[#E7BB55] transition-transform duration-300 ease-in-out hover:scale-105">
-                    <Link to="/team">Meet the Team</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+              {/* Card 2: Our Team Overview */}
+              <motion.div variants={cardVariants}>
+                <Card className="text-center h-full border-[#E7BB55]/15 bg-black/60 backdrop-blur-md transition-all duration-300 ease-in-out hover:border-[#E7BB55]/40 hover:shadow-[0_0_30px_rgba(231,187,85,0.1)] rounded-lg">
+                  <CardHeader className="pt-8">
+                    <Users className="h-10 w-10 text-[#E7BB55] mx-auto mb-3" />
+                    <CardTitle className="font-display text-xl uppercase tracking-widest text-[#E7BB55]">Our Team</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-8">
+                    <CardDescription className="font-sans tracking-wider text-zinc-400 leading-relaxed text-sm">
+                      United by a vision to build safety ecosystems and save lives through accessible technology.
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
               {/* Card 3: Our Innovation */}
-              <Card className="text-center h-full border-black/10 bg-white transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-                <CardHeader>
-                  <Lightbulb className="h-12 w-12 text-[#E7BB55] mx-auto mb-4" />
-                  <CardTitle className="font-playfair text-2xl text-black">Our Innovation</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {/* Description: Geometric Sans tracking-wider */}
-                  <CardDescription className="font-sans tracking-wider text-black/70 leading-relaxed">
-                    E.L.S.A represents our commitment to intelligent, secure, and budget-conscious automation for everyone.
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </div>
+              <motion.div variants={cardVariants}>
+                <Card className="text-center h-full border-[#E7BB55]/15 bg-black/60 backdrop-blur-md transition-all duration-300 ease-in-out hover:border-[#E7BB55]/40 hover:shadow-[0_0_30px_rgba(231,187,85,0.1)] rounded-lg">
+                  <CardHeader className="pt-8">
+                    <Lightbulb className="h-10 w-10 text-[#E7BB55] mx-auto mb-3" />
+                    <CardTitle className="font-display text-xl uppercase tracking-widest text-[#E7BB55]">Our Innovation</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pb-8">
+                    <CardDescription className="font-sans tracking-wider text-zinc-400 leading-relaxed text-sm">
+                      E.L.S.A represents our commitment to intelligent, secure, and budget-conscious automation for everyone.
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </motion.div>
+
+            {/* Centered Large CTA Button Outside and Below the Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35, duration: 0.6 }}
+              className="mt-12 text-center"
+            >
+              <Link
+                to="/team"
+                className="inline-flex h-14 items-center justify-center rounded-lg border-2 border-[#E7BB55] bg-black/90 px-12 text-sm sm:text-base font-display font-black uppercase tracking-widest text-[#E7BB55] hover:bg-[#E7BB55] hover:text-black transition-all duration-300 ease-in-out hover:scale-105 shadow-[0_0_30px_rgba(231,187,85,0.25)] hover:shadow-[0_0_45px_rgba(231,187,85,0.45)]"
+              >
+                Meet Our Team
+              </Link>
+            </motion.div>
           </section>
 
           {/* Our Vision Section */}
-          <section className="bg-white border border-black/5 rounded-lg p-8 md:p-12 shadow-sm">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="font-playfair text-3xl md:text-4xl font-bold text-center text-black mb-8">
+          <section className="mb-32 w-full max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="bg-black/40 border border-[#E7BB55]/15 rounded-lg p-8 md:p-12 backdrop-blur-md shadow-2xl"
+            >
+              <h2 className="font-display text-3xl md:text-4xl font-black text-center text-[#E7BB55] mb-8 uppercase tracking-widest">
                 Our Vision
               </h2>
-              <div className="bg-black/5 border-l-4 border-[#E7BB55] p-6 rounded-r-lg mb-8">
-                {/* Text: Geometric Sans tracking-wider */}
-                <p className="font-sans tracking-wider text-lg text-black leading-relaxed">
+              <div className="border-l-4 border-[#E7BB55] bg-black/50 p-6 rounded-r-lg mb-8">
+                <p className="font-sans tracking-wider text-base md:text-lg text-zinc-300 leading-relaxed italic">
                   "We're building more than just products—we're creating life-saving solutions that make everyday living smarter, safer, and more secure."
                 </p>
               </div>
-              <div className="space-y-6">
-                {/* Description: Geometric Sans tracking-wider */}
-                <p className="font-sans tracking-wider text-lg text-black/60 leading-relaxed">
+              <div className="space-y-6 text-zinc-400 text-sm md:text-base">
+                <p className="font-sans tracking-wider leading-relaxed">
                   At PluggedIn, we're not just creating products; we're focused on building a smarter, more connected living experience that can scale across homes and buildings alike. Our aim is to bring intelligent, secure, and budget-conscious automation into the hands of everyone—without compromising on quality or reliability.
                 </p>
-                {/* Description: Geometric Sans tracking-wider */}
-                <p className="font-sans tracking-wider text-lg text-black/60 leading-relaxed">
+                <p className="font-sans tracking-wider leading-relaxed">
                   We believe that technology should serve humanity, especially in moments when it matters most. That's why E.L.S.A isn't just an emergency button—it's a comprehensive safety ecosystem designed to save lives and provide peace of mind.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </section>
 
-          {/* Values Section */}
-          <section className="mt-20">
-            <h2 className="font-playfair text-3xl font-bold text-center text-black mb-12">
+
+
+          {/* Core Values Section */}
+          <section className="w-full max-w-6xl mx-auto">
+            <h2 className="font-display text-3xl font-black text-center text-[#E7BB55] mb-12 uppercase tracking-widest">
               Our Core Values
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -120,10 +195,9 @@ const About = () => {
                 { title: "Security", desc: "Ensuring your safety data is protected with the highest security standards." },
                 { title: "Impact", desc: "Measuring our success by the lives we help save and protect." }
               ].map((value, idx) => (
-                <div key={idx} className="p-6 border border-black/10 rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg bg-white">
-                  <h3 className="font-playfair text-xl font-semibold text-black mb-3">{value.title}</h3>
-                  {/* Description: Geometric Sans tracking-wider */}
-                  <p className="font-sans tracking-wider text-black/60 leading-relaxed">
+                <div key={idx} className="p-6 border border-[#E7BB55]/10 bg-black/40 rounded-lg transition-all duration-300 ease-in-out hover:border-[#E7BB55]/30 hover:shadow-[0_0_20px_rgba(231,187,85,0.05)]">
+                  <h3 className="font-display text-[#E7BB55] text-lg font-bold mb-3 uppercase tracking-wider">{value.title}</h3>
+                  <p className="font-sans tracking-wider text-zinc-400 text-xs leading-relaxed">
                     {value.desc}
                   </p>
                 </div>
@@ -132,7 +206,7 @@ const About = () => {
           </section>
         </div>
       </div>
-    </>
+    </AnimatedPage>
   );
 };
 

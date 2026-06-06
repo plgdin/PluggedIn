@@ -15,8 +15,7 @@ const Header = () => {
     { name: "Home", href: "/", state: { transition: "default" } },
     { name: "Our Services", href: "/services", state: { transition: "pixelTransition" } },
     { name: "E.L.S.A", href: "/elsa", state: { transition: "cyberSlide" } },
-    { name: "SnuggleIt", href: "/snuggleit", state: { transition: "circleExpand" } },
-    { name: "About", href: "/about", state: { transition: "circleExpand" } },
+    { name: "About", href: "/about", state: { transition: "diagonalCurtain" } },
     { name: "Contact", href: "/contact", state: { transition: "flipRotate" } },
   ];
 
@@ -84,7 +83,7 @@ const Header = () => {
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    className="absolute inset-0 bg-[#E7BB55]/10 rounded border border-[#E7BB55]/30 -z-10 shadow-[0_0_15px_rgba(231,187,85,0.15)]"
+                    className="absolute inset-0 bg-gradient-to-r from-[#E7BB55]/0 via-[#E7BB55]/12 to-[#E7BB55]/0 rounded-full -z-10 blur-[1px]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}

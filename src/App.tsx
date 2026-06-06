@@ -16,7 +16,7 @@ import About from "./pages/About";
 import ELSA from "./pages/ELSA";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import SnuggleIt from "./pages/SnuggleIt";
+
 import Team from "./pages/Team";
 import Services from "./pages/Services";
 import H2OPage from "./pages/H2OPage";
@@ -36,7 +36,7 @@ const AnimatedRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/elsa" element={<ELSA />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/snuggleit" element={<SnuggleIt />} />
+
         <Route path="/team" element={<Team />} />
         <Route path="/services" element={<Services />} />
         

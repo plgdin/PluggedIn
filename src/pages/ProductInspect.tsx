@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import AnimatedPage from '../components/AnimatedPage';
+import { motion } from 'framer-motion';
 
 // --- 3D IMPORTS ---
 import { Canvas } from '@react-three/fiber';
 import { useGLTF, Stage, OrbitControls, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
-import InteractiveCanvasGrid from '../components/InteractiveCanvasGrid';
+import { FloatingPaths } from '@/components/ui/BackgroundPaths';
 
 function Model() {
   const { scene } = useGLTF('/elsa-model.glb');
@@ -43,6 +44,9 @@ export default function ProductInspect() {
     };
   }, []);
 
+  const titleText = "E.L.S.A";
+  const words = titleText.split(" ");
+
   return (
     <AnimatedPage>
       <Helmet>
@@ -53,14 +57,16 @@ export default function ProductInspect() {
       {/* Styled in rich tech black to match the theme */}
       <div className="relative w-full h-screen bg-[#020203] overflow-hidden text-white">
         
-        {/* Full-Screen Interactive Connected Particle Matrix Grid */}
-        <div className="opacity-30 pointer-events-none">
-          <InteractiveCanvasGrid />
+        {/* Floating Paths Background */}
+        <div className="absolute inset-0 z-0">
+          <FloatingPaths position={1} />
+          <FloatingPaths position={-1} />
         </div>
 
         {/* Header decoration line */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#E7BB55]/25 to-transparent z-40" />
 
+        {/* Back button */}
         <div className="absolute top-24 left-6 z-50">
           <Button 
             variant="outline" 
@@ -74,8 +80,45 @@ export default function ProductInspect() {
           </Button>
         </div>
 
+        {/* Animated Title in Background behind the 3D Model */}
+        <div className="absolute top-[16%] w-full flex items-center justify-center text-center pointer-events-none select-none z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.85 }}
+            transition={{ duration: 1.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[100px] font-black tracking-widest">
+              {words.map((word, wordIndex) => (
+                <span
+                  key={wordIndex}
+                  className="inline-block mr-4 last:mr-0"
+                >
+                  {word.split("").map((letter, letterIndex) => (
+                    <motion.span
+                      key={`${wordIndex}-${letterIndex}`}
+                      initial={{ y: 80, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        delay: wordIndex * 0.1 + letterIndex * 0.04,
+                        type: "spring",
+                        stiffness: 150,
+                        damping: 25,
+                      }}
+                      className="inline-block text-transparent bg-clip-text 
+                      bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 font-display tracking-tight"
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </h1>
+          </motion.div>
+        </div>
+
         {/* 3D Canvas Scene */}
-        <div className="w-full h-full cursor-move">
+        <div className="w-full h-full cursor-move relative z-20">
           <Canvas dpr={[1, 2]} camera={{ fov: 45 }}>
              <Stage environment="city" intensity={0.8} adjustCamera={1.5}>
                 <Model />

@@ -22,11 +22,6 @@ const Footer = () => {
             <h3 className="font-semibold mb-4 text-[#E7BB55]">Products</h3>
             <ul className="space-y-2 text-sm text-[#E7BB55]/80">
               <li>
-                <Link to="/snuggleit" className="hover:text-white transition-colors">
-                  SnuggleIt Pet Beds
-                </Link>
-              </li>
-              <li>
                 <Link to="/elsa" className="hover:text-white transition-colors">
                   E.L.S.A. Emergency Device
                 </Link>

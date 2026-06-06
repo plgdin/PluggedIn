@@ -57,9 +57,9 @@ const transitionVariants = {
       transition: { duration: 0.7, ease: [0.34, 1.56, 0.64, 1] } 
     },
     exit: { 
-      rotateY: -90, 
-      opacity: 0,
-      transition: { duration: 0.5, ease: "easeIn" } 
+      opacity: 0, 
+      y: -25,
+      transition: { duration: 0.25 } 
     }
   },
 
